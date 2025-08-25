@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import { useMediaQuery } from "react-responsive";
 
@@ -13,6 +13,12 @@ import { SplitText } from "gsap/all";
 export default function Hero() {
     const videoRef = useRef();
     const isMobile = useMediaQuery({ maxWidth: 767 });
+
+    const [src, setSrc] = useState("/cocktail/videos/output.mp4");
+
+    useEffect(() => {
+        setSrc(`/cocktail/videos/output.mp4?nocache=${Date.now()}`);
+    }, []);
 
     useGSAP(() => {
         const heroSplit = new SplitText(".title", { type: "chars, words" });
@@ -49,8 +55,8 @@ export default function Hero() {
         .to(".left-leaf", { y: -200 }, 0)
 
         const startValue = isMobile ? "top 50%" : "center 60%";
-        const endValue = isMobile ? "120% top" : "bottom top";
-        
+        const endValue = isMobile ? "123% top" : "bottom top";
+
         let tl = gsap.timeline({
             scrollTrigger: {
                 trigger: "video",
@@ -60,14 +66,12 @@ export default function Hero() {
                 pin: true,
             }
         });
-        
+
         videoRef.current.onloadedmetadata = () => {
             tl.to(videoRef.current, {
                 currentTime: videoRef.current.duration,
             })
         };
-
-        videoRef.current.onloadedmetadata();
     }, []);
 
     return (
@@ -121,7 +125,7 @@ export default function Hero() {
                     muted
                     playsInline
                     preload="auto"
-                    src="/cocktail/videos/output.mp4"
+                    src={src}
                 />
             </div>
         </>

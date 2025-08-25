@@ -1,5 +1,7 @@
 "use client"
 
+import "@/app/styles/cocktail.css";
+
 import gsap from "gsap";
 import { ScrollTrigger, SplitText } from "gsap/all";
 
@@ -9,8 +11,6 @@ import Cocktail from "./components/cocktail";
 import About from "./components/about";
 import Art from "./components/art";
 import Menu from "./components/menu";
-
-import "@/app/styles/cocktail.css";
 
 gsap.registerPlugin(
     ScrollTrigger,
