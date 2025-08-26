@@ -1,7 +1,5 @@
 "use client"
 
-import "@/app/styles/cocktail.css";
-
 import gsap from "gsap";
 import { ScrollTrigger, SplitText } from "gsap/all";
 

@@ -119,7 +119,7 @@ export default function Hero() {
                 </div>
             </section>
 
-            <div className="video absolute inset-0">
+            <div className="video absolute inset-0 hidden lg:block">
                 <video
                     ref={videoRef}
                     muted

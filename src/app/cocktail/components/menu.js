@@ -11,6 +11,7 @@ import { sliderLists } from "@/constants";
 export default function Menu() {
     const contentRef = useRef();
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [isLoading, setIsLoading] = useState(true);
 
     useGSAP(() => {
         gsap.fromTo(
@@ -137,7 +138,9 @@ export default function Menu() {
                         alt="cocktail"
                         width={800}
                         height={800}
-                        className="object-contain"
+                        className={`object-contain transition-opacity duration-500 ${isLoading && "opacity-0"}`}
+                        onLoadingComplete={() => setIsLoading(false)}
+                        key={currentIndex}
                     />
                 </div>
 
