@@ -70,7 +70,7 @@ export default function Hero() {
                     { clipPath: "polygon(10% 0, 85% 0, 92% 95%, 0 100%, 0 80%)" },
                     { clipPath: "polygon(12.5% 0, 77.5% 0, 88% 92.5%, 0 85%, 0 85%)" },
                     { clipPath: "polygon(15% 0, 70% 0, 84% 90%, 1% 82%, 1% 82%)" }
-                ]
+                ],
             }
         );
     }, []);
@@ -86,7 +86,7 @@ export default function Hero() {
                 <div className="group absolute-center preview-size cursor-pointer z-20">
                     <div className="size-full scale-0 group-hover:scale-100 opacity-0 group-hover:opacity-100 origin-center transition-all duration-500 ease-in">
                         <div
-                            className="preview-video size-full border-[2px] border-neutral-800 rounded-[15px] scale-120 overflow-hidden origin-center"
+                            className="preview-video size-full border-[2px] border-neutral-800 rounded-[15px] scale-200 overflow-hidden origin-center"
                             onClick={handleClickPreviewVideo}
                         >
                             <video
