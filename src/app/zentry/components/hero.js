@@ -110,6 +110,8 @@ export default function Hero() {
     }
 
     const handleMouseEnter = (e) => {
+        if (isMobileScreen) return;
+
         gsap.to(
             e.target, {
                 height: "56px",
@@ -130,6 +132,8 @@ export default function Hero() {
     }
 
     const handleMouseLeave = (e) => {
+        if (isMobileScreen) return;
+
         gsap.to(
             e.target,
             {
@@ -159,9 +163,7 @@ export default function Hero() {
                         onClick={handleClickPreviewVideo}
                     >
                         <video
-                            muted
-                            loop
-                            playsInline
+                            preload="auto"
                             src={getLinkVideo((currentVideoIndex % totalVideos) + 1)}
                             className="hero-video scale-150"
                         />
@@ -175,6 +177,7 @@ export default function Hero() {
                     muted
                     loop
                     playsInline
+                    preload="auto"
                     src={getLinkVideo(currentVideoIndex)}
                     className="expand-video"
                 />
@@ -185,6 +188,7 @@ export default function Hero() {
                     autoPlay
                     loop
                     playsInline
+                    preload="auto"
                     src="/zentry/videos/hero-1.mp4"
                     className="hero-video absolute top-0 left-0 z-0"
                 />
