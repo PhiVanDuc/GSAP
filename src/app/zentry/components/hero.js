@@ -1,7 +1,8 @@
 import { useGSAP } from "@gsap/react";
-import { useRef, useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
 
+import Loading from "@/components/loading";
 import { TiLocationArrow } from "react-icons/ti";
 
 import gsap from "gsap";
@@ -13,12 +14,27 @@ export default function Hero() {
     const cooldownRef = useRef(false);
 
     const [isClicked, setIsClicked] = useState(false);
+    const [isLoadVideo, setIsLoadVideo] = useState(true);
+    const [loadedVideoCount, setLoadedVideoCount] = useState(0);
     const [currentVideoIndex, setCurrentVideoIndex] = useState(1);
+    const [dateCache, setDateCache] = useState("");
     const isMobileScreen = useMediaQuery({ maxWidth: 767 });
 
     const totalVideos = 4;
-    const getLinkVideo = (index) => `/zentry/videos/hero-${index}.mp4`;
-    
+    const totalVideosNeedLoad = 3;
+    const getLinkVideo = (index) => `/zentry/videos/hero-${index}.mp4${dateCache}`;
+
+    useEffect(() => {
+        if (loadedVideoCount >= totalVideosNeedLoad) {
+            setIsLoadVideo(false);
+            setLoadedVideoCount(0);
+        }
+    }, [loadedVideoCount]);
+
+    useEffect(() => {
+        setDateCache(`?nocache=${Date.now()}`);
+    }, []);
+
     useGSAP(
         () => {
             if (isClicked) {
@@ -105,7 +121,6 @@ export default function Hero() {
 
         setIsClicked(true);
         setCurrentVideoIndex((prev) => (prev % totalVideos) + 1);
-
         setTimeout(() => { cooldownRef.current = false }, 1500);
     }
 
@@ -129,7 +144,7 @@ export default function Hero() {
         );
     }
 
-    const handleMouseLeave = (e) => {
+    const handlePointerLeave = (e) => {
         gsap.to(
             e.target,
             {
@@ -149,9 +164,15 @@ export default function Hero() {
             }
         );
     }
+
+    const handleVideoLoading = () => {
+        setLoadedVideoCount(prev => prev + 1);
+    }
     
     return (
         <div className="relative w-dvw h-dvh overflow-hidden">
+            <Loading isLoading={isLoadVideo && (loadedVideoCount < totalVideosNeedLoad)} />
+
             <div className="group absolute-center preview-size z-20">
                 <div className="preview-video-wrapper">
                     <div
@@ -162,6 +183,7 @@ export default function Hero() {
                             preload="auto"
                             src={getLinkVideo((currentVideoIndex % totalVideos) + 1)}
                             className="hero-video scale-150"
+                            onLoadedData={handleVideoLoading}
                         />
                     </div>
                 </div>
@@ -176,6 +198,7 @@ export default function Hero() {
                     preload="auto"
                     src={getLinkVideo(currentVideoIndex)}
                     className="expand-video"
+                    onLoadedData={handleVideoLoading}
                 />
 
                 <video
@@ -185,8 +208,9 @@ export default function Hero() {
                     loop
                     playsInline
                     preload="auto"
-                    src="/zentry/videos/hero-1.mp4"
+                    src={getLinkVideo(1)}
                     className="hero-video absolute top-0 left-0 z-0"
+                    onLoadedData={handleVideoLoading}
                 />
 
                 <header className="hero-content">
@@ -208,9 +232,9 @@ export default function Hero() {
                     <button
                         className="hero-button text-xs text-zinc-800 font-medium uppercase cursor-pointer"
                         onMouseEnter={handleMouseEnter}
-                        onMouseLeave={handleMouseLeave}
+                        onPointerLeave={handlePointerLeave}
                     >
-                        <div className="hero-button-content flex items-center gap-[8px]">
+                        <div className="hero-button-content flex items-center h-fit gap-[8px]">
                             <TiLocationArrow size={20} />
                             <span>watch trailer</span>
                         </div>

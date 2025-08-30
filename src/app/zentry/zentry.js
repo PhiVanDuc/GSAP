@@ -3,9 +3,10 @@
 import Hero from "./components/hero";
 
 import gsap from "gsap";
+import SplitText from "gsap/SplitText";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, SplitText);
 
 export default function Zentry() {
     return (
