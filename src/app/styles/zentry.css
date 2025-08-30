@@ -56,6 +56,11 @@ body {
   font-family: var(--font-sans);
 }
 
+@utility special-zentry-font {
+  font-family: var(--font-zentry);
+  font-feature-settings: "ss01" on;
+}
+
 @utility absolute-center {
   @apply absolute top-1/2 left-1/2 -translate-1/2;
 }
@@ -64,16 +69,48 @@ body {
   @apply w-[150px] lg:w-[200px] min-[2400px]:w-[250px] aspect-square;
 }
 
-@utility hero-video-box {
-  clip-path: polygon(0 0%, 100% 0, 100% 100%, 0 100%);
-  @apply relative w-full h-full border border-neutral-700 origin-center perspective-midrange overflow-hidden;
-}
-
-@utility hero-video {
-  @apply w-full h-full object-cover object-center;
-}
-
 @utility hero-header {
-  transform-style: preserve-3d;
-  @apply absolute bottom-[100px] right-[100px] space-y-[20px] text-white origin-center;
+  @apply font-zentry text-[80px] sm:text-[120px] lg:text-[205px] font-bold leading-none lg:tracking-[-2px];
+}
+
+@layer components {
+  .hero-video-box {
+    clip-path: polygon(0 0%, 100% 0, 100% 100%, 0 100%);
+    @apply relative w-full h-full border border-neutral-700 origin-center perspective-midrange overflow-hidden;
+
+    .expand-video {
+      @apply absolute-center preview-size border-[2px] border-zinc-800 rounded-[15px] invisible object-cover object-center z-10;
+    }
+  }
+
+  .preview-video-wrapper {
+    @apply size-full md:scale-0 md:group-hover:scale-100 md:opacity-0 md:group-hover:opacity-100 origin-center transition-all duration-500 ease-out;
+
+    .preview-video {
+      @apply size-full rounded-[15px] border-[2px] border-zinc-800 cursor-pointer overflow-hidden
+    }
+  }
+
+  .hero-video {
+    @apply size-full object-cover object-center;
+  }
+
+  .hero-content {
+    @apply flex flex-col items-center absolute top-[100px] bottom-[40px] left-[20px] right-[20px] z-10 sm:items-start sm:bottom-auto sm:left-[40px] sm:right-0;
+  }
+
+  .hero-mask-header {
+    @apply hidden sm:block hero-header absolute bottom-[20px] right-[50px];
+
+    b {
+      @apply special-zentry-font;
+    }
+  }
+
+  .hero-button {
+    width: 180px;
+    height: 46px;
+    clip-path: path("M 10,0 L 170,0 A 10,10 0,0,1 180,10 L 180,36 A 10,10 0,0,1 170,46 L 10,46 A 10,10 0,0,1 0,36 L 0,10 A 10,10 0,0,1 10,0 Z");
+    @apply flex items-center justify-center !bg-yellow-300;
+  }
 }
