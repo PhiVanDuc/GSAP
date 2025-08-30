@@ -79,7 +79,7 @@ body {
     @apply relative w-full h-full border border-neutral-700 origin-center perspective-midrange overflow-hidden;
 
     .expand-video {
-      @apply absolute-center preview-size border-[2px] border-zinc-800 rounded-[15px] invisible object-cover object-center z-10;
+      @apply absolute-center preview-size border-[2px] border-zinc-800 bg-zinc-500 rounded-[15px] invisible object-cover object-center z-10;
     }
   }
 
@@ -87,7 +87,7 @@ body {
     @apply size-full md:scale-0 md:group-hover:scale-100 md:opacity-0 md:group-hover:opacity-100 origin-center transition-all duration-500 ease-out;
 
     .preview-video {
-      @apply size-full rounded-[15px] border-[2px] border-zinc-800 cursor-pointer overflow-hidden
+      @apply size-full rounded-[15px] border-[2px] border-zinc-800 bg-zinc-500 cursor-pointer overflow-hidden
     }
   }
 

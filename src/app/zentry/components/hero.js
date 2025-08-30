@@ -110,8 +110,6 @@ export default function Hero() {
     }
 
     const handleMouseEnter = (e) => {
-        if (isMobileScreen) return;
-
         gsap.to(
             e.target, {
                 height: "56px",
@@ -132,8 +130,6 @@ export default function Hero() {
     }
 
     const handleMouseLeave = (e) => {
-        if (isMobileScreen) return;
-
         gsap.to(
             e.target,
             {
@@ -210,7 +206,7 @@ export default function Hero() {
                     </p>
 
                     <button
-                        className="hero-button mt-auto sm:mt-0 text-xs text-zinc-800 font-medium uppercase cursor-pointer"
+                        className="hero-button text-xs text-zinc-800 font-medium uppercase cursor-pointer"
                         onMouseEnter={handleMouseEnter}
                         onMouseLeave={handleMouseLeave}
                     >
