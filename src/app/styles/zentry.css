@@ -96,7 +96,7 @@ body {
   }
 
   .hero-content {
-    @apply flex flex-col items-center absolute top-[100px] bottom-[40px] left-[20px] right-[20px] z-10 sm:items-start sm:bottom-auto sm:left-[40px] sm:right-0;
+    @apply flex flex-col items-center absolute top-[60px] bottom-[40px] left-[20px] right-[20px] z-10 sm:items-start sm:top-[100px] sm:bottom-auto sm:left-[40px] sm:right-0;
   }
 
   .hero-mask-header {
