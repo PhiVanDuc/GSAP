@@ -13,7 +13,9 @@ export default function Zentry() {
     return (
         <main className="relative min-h-screen">
             <Hero />
-            <About />
+
+            <div className="h-[2000px]" />
+            {/* <About /> */}
         </main>
     )
 }
