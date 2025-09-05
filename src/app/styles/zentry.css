@@ -66,7 +66,7 @@ body {
 }
 
 @utility preview-size {
-  @apply w-[150px] lg:w-[200px] min-[2400px]:w-[250px] aspect-square;
+  @apply w-[120px] sm:w-[150px] lg:w-[200px] min-[2400px]:w-[250px] aspect-square;
 }
 
 @utility hero-header {
@@ -84,41 +84,9 @@ body {
 
   .hero-video-box {
     clip-path: polygon(0 0%, 100% 0, 100% 100%, 0 100%);
-    @apply relative w-full h-full border border-neutral-700 overflow-hidden;
-
-    .expand-video {
-      @apply absolute-center preview-size border-[2px] border-zinc-800 bg-zinc-500 rounded-[15px] invisible object-cover object-center z-10;
-    }
-  }
-
-  .preview-video-wrapper {
-    @apply size-full md:scale-0 md:group-hover:scale-100 md:opacity-0 md:group-hover:opacity-100 origin-center transition-all duration-500 ease-out;
-
-    .preview-video {
-      @apply size-full rounded-[15px] border-[2px] border-zinc-800 bg-zinc-500 cursor-pointer overflow-hidden
-    }
-  }
-
-  .hero-video {
-    @apply size-full object-cover object-center;
-  }
-
-  .hero-content {
-    @apply flex flex-col items-center absolute top-[60px] bottom-[40px] left-[20px] right-[20px] z-10 sm:items-start sm:top-[100px] sm:bottom-auto sm:left-[40px] sm:right-0;
-  }
-
-  .hero-mask-header {
-    @apply hidden sm:block hero-header absolute bottom-[20px] right-[50px];
-
-    b {
-      @apply special-zentry-font;
-    }
   }
 
   .hero-button {
-    width: 180px;
-    height: 46px;
     clip-path: path("M 10,0 L 170,0 A 10,10 0,0,1 180,10 L 180,36 A 10,10 0,0,1 170,46 L 10,46 A 10,10 0,0,1 0,36 L 0,10 A 10,10 0,0,1 10,0 Z");
-    @apply flex items-center justify-center !bg-yellow-300;
   }
 }

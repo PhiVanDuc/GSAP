@@ -174,22 +174,25 @@ export default function Hero() {
             <Loading isLoading={isLoadVideo && (loadedVideoCount < totalVideosNeedLoad)} />
 
             <div className="group absolute-center preview-size z-20">
-                <div className="preview-video-wrapper">
+                <div className={clsx(
+                    "preview-video-wrapper size-full origin-center transition-all duration-500 ease-out",
+                    "md:scale-0 md:group-hover:scale-100 md:opacity-0 md:group-hover:opacity-100"
+                )}>
                     <div
-                        className="preview-video"
+                        className="preview-video size-full border border-zinc-800 bg-zinc-500 rounded-[15px] cursor-pointer overflow-hidden"
                         onClick={handleClickPreviewVideo}
                     >
                         <video
                             preload="auto"
                             src={getLinkVideo((currentVideoIndex % totalVideos) + 1)}
-                            className="hero-video scale-150"
+                            className="hero-video size-full object-cover object-center scale-150"
                             onLoadedData={handleVideoLoading}
                         />
                     </div>
                 </div>
             </div>
             
-            <div className="hero-video-box">
+            <div className="hero-video-box relative w-full h-full border border-neutral-800 overflow-hidden">
                 <video
                     ref={expandVideoRef}
                     muted
@@ -197,7 +200,7 @@ export default function Hero() {
                     playsInline
                     preload="auto"
                     src={getLinkVideo(currentVideoIndex)}
-                    className="expand-video"
+                    className="expand-video absolute-center preview-size border border-zinc-800 bg-zinc-500 rounded-[15px] invisible object-cover object-center z-10"
                     onLoadedData={handleVideoLoading}
                 />
 
@@ -209,11 +212,14 @@ export default function Hero() {
                     playsInline
                     preload="auto"
                     src={getLinkVideo(1)}
-                    className="hero-video absolute top-0 left-0 z-0"
+                    className="hero-video absolute top-0 left-0 size-full object-cover object-center z-0"
                     onLoadedData={handleVideoLoading}
                 />
 
-                <header className="hero-content">
+                <header className={clsx(
+                    "hero-content flex flex-col items-center absolute top-[60px] bottom-[40px] left-[20px] right-[20px] z-10",
+                    "sm:items-start sm:top-[100px] sm:bottom-auto sm:left-[40px] sm:right-0"
+                )}>
                     <h1 className={clsx(
                         "hero-header text-blue-50 mb-[15px]",
                         "lg:mb-[5px]"
@@ -222,29 +228,42 @@ export default function Hero() {
                     </h1>
 
                     <p className={clsx(
-                        "font-robert-regular mb-[30px] text-blue-100 text-center sm:text-left",
-                        "sm:text-[18px]"
+                        "font-robert-regular mb-[30px] text-blue-100 text-center",
+                        "sm:text-[18px] sm:text-left"
                     )}>
                         Enter the Metagame <br />
                         Unleash the Play Economy
                     </p>
 
                     <button
-                        className="hero-button text-xs text-zinc-800 font-medium uppercase cursor-pointer"
+                        className={clsx(
+                            "hero-button flex items-center justify-center w-[180px] h-[46px] text-xs text-zinc-800 uppercase bg-yellow-300 cursor-pointer",
+                            "mt-auto sm:mt-0"
+                        )}
                         onMouseEnter={handleMouseEnter}
                         onPointerLeave={handlePointerLeave}
                     >
-                        <div className="hero-button-content flex items-center h-fit gap-[8px]">
+                        <div className="hero-button-content flex items-center gap-[8px] h-fit">
                             <TiLocationArrow size={20} />
                             <span>watch trailer</span>
                         </div>
                     </button>
                 </header>
 
-                <h2 className="hero-mask-header text-blue-50 z-10">G<b>A</b>MING</h2>
+                <h2 className={clsx(
+                    "hero-mask-header hidden hero-header absolute bottom-[20px] right-[50px] text-blue-50 z-10",
+                    "sm:block"
+                )}>
+                    G<b className="special-zentry-font">A</b>MING
+                </h2>
             </div>
 
-            <h2 className="hero-mask-header text-zinc-800 -z-10">G<b>A</b>MING</h2>
+            <h2 className={clsx(
+                "hero-mask-header hidden hero-header absolute bottom-[20px] right-[50px] text-zinc-800 -z-10",
+                "sm:block"
+            )}>
+                G<b className="special-zentry-font">A</b>MING
+            </h2>
         </div>
     )
 }
