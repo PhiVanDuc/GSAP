@@ -12,10 +12,10 @@ gsap.registerPlugin(ScrollTrigger, SplitText);
 export default function Zentry() {
     return (
         <main className="relative min-h-screen">
-            <Hero />
+            {/* <Hero /> */}
+            <About />
 
             <div className="h-[2000px]" />
-            {/* <About /> */}
         </main>
     )
 }

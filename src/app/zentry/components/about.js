@@ -71,8 +71,8 @@ export default function About() {
 
             let finalWidth =
                 width >= 1024 ? 400 :
-                (width <= 1023 && width >= 768) ? 350 :
-                width <= 767 && 300;
+                width >= 768 ? 350 :
+                300;
 
             const finalHeight = finalWidth * 1.5;
 
