@@ -1,5 +1,7 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
+
+import Image from "next/image";
 
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
@@ -114,7 +116,7 @@ export default function About() {
                     className="title text-[90px] font-zentry leading-none origin-center rotate-x-[-40deg] rotate-y-[-70deg] rotate-z-[-45deg] translate-x-[-200px] translate-y-[100px]"
                     style={{ transformStyle: "preserve-3d" }}
                 >
-                    Discover the world's <br />
+                    Discover the world&apos;s <br />
                     largest shared adventure.
                 </h2>
             </header>
@@ -127,9 +129,11 @@ export default function About() {
                     ref={aboutImageWrapperRef}
                     className="absolute w-dvw h-full"
                 >
-                    <img
+                    <Image
                         src="/zentry/img/about.webp"
                         alt="About Image"
+                        width="4000"
+                        height="4000"
                         className="size-full object-cover object-center"
                     />
                 </div>

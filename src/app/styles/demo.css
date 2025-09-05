@@ -20,17 +20,3 @@
   transform-origin: "center center";
   transition: transform 0.5s ease-out, opacity 0.2s ease-out;
 } */
-
-
-/* Mask */
-/* .mask-with-image {
-  -webkit-mask-image: url("/zentry/img/gallery-1.webp");
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  -webkit-mask-size: contain;
-
-  mask-image: url("/zentry/img/gallery-1.webp");
-  mask-repeat: no-repeat;
-  mask-position: center;
-  mask-size: contain;
-} */
