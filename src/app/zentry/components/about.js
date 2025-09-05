@@ -1,10 +1,11 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useGSAP } from "@gsap/react";
 
 import Image from "next/image";
 
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
+import clsx from "clsx";
 
 export default function About() {
     const aboutImageWrapperRef = useRef();
@@ -53,19 +54,26 @@ export default function About() {
         }, "<");
     }, []);
 
-    useGSAP(() => {
+    useEffect(() => {
         const wrapper = aboutImageWrapperRef.current;
         if (!wrapper) return;
 
         let tween;
 
         const handleResize = () => {
-            if (tween) tween.kill();
+            if (tween) {
+                tween.kill();
+                tween = undefined;
+            }
 
             const width = wrapper.offsetWidth;
             const height = wrapper.offsetHeight;
 
-            let finalWidth = 400;
+            let finalWidth =
+                width >= 1024 ? 400 :
+                (width <= 1023 && width >= 768) ? 350 :
+                width <= 767 && 300;
+
             const finalHeight = finalWidth * 1.5;
 
             const x1 = ((width / 2) - (finalWidth / 2));
@@ -111,9 +119,18 @@ export default function About() {
                 className="about-header space-y-[40px] pt-[120px] pb-[20px] text-zinc-900 text-center uppercase"
                 style={{ perspective: "2000px" }}
             >
-                <p className="desc text-[11px]">welcome to zentry</p>
+                <p className={clsx(
+                    "desc text-[10px]",
+                    "sm:text-[11px]"
+                )}>
+                    welcome to zentry
+                </p>
                 <h2
-                    className="title text-[90px] font-zentry leading-none origin-center rotate-x-[-40deg] rotate-y-[-70deg] rotate-z-[-45deg] translate-x-[-200px] translate-y-[100px]"
+                    className={clsx(
+                        "title text-[50px] font-zentry leading-none origin-center rotate-x-[-40deg] rotate-y-[-70deg] rotate-z-[-45deg] translate-x-[-200px] translate-y-[100px]",
+                        "sm:text-[65px]",
+                        "lg:text-[90px]"
+                    )}
                     style={{ transformStyle: "preserve-3d" }}
                 >
                     Discover the world&apos;s <br />
