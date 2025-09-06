@@ -3,9 +3,10 @@ import { useGSAP } from "@gsap/react";
 
 import Image from "next/image";
 
+import clsx from "clsx";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
-import clsx from "clsx";
+import ScrollTrigger from "gsap/ScrollTrigger";
 
 export default function About() {
     const aboutImageWrapperRef = useRef();
@@ -78,18 +79,15 @@ export default function About() {
     useEffect(() => {
         if (!aboutImageWrapperRef.current) return;
 
-        const updateClipPath = () => {
-            const clipPath = calcClipPathAboutImage(aboutImageWrapperRef.current);
-            aboutImageWrapperRef.current.style.clipPath = clipPath;
-            aboutImageWrapperRef.current.style.webkitClipPath = clipPath;
-        };
+        const clipPath = calcClipPathAboutImage(aboutImageWrapperRef.current);
+        aboutImageWrapperRef.current.style.clipPath = clipPath;
+        aboutImageWrapperRef.current.style.webkitClipPath = clipPath;
+    }, []);
 
-        updateClipPath();
-
-        const resizeObserver = new ResizeObserver(() => updateClipPath());
-        resizeObserver.observe(aboutImageWrapperRef.current);
-
-        return () => resizeObserver.disconnect();
+    useEffect(() => {
+        setTimeout(() => {
+            ScrollTrigger.refresh();
+        }, 500);
     }, []);
 
     useGSAP(() => {
@@ -105,20 +103,17 @@ export default function About() {
         gsap.fromTo(
             aboutImageWrapperRef.current,
             {
-                clipPath: startClip,
-                scale: 0.9
+                clipPath: startClip
             },
             {
                 clipPath: endClip,
-                scale: 1,
                 ease: "none",
                 scrollTrigger: {
                     trigger: "#about-content",
                     start: "top top",
                     end: "80% top",
                     scrub: 0.5,
-                    pin: true,
-                    pinSpacer: false
+                    pin: true
                 },
             }
         );
@@ -127,8 +122,8 @@ export default function About() {
     return (
         <section className="about">
             <header
-                className="about-header space-y-[40px] pt-[120px] pb-[20px] text-zinc-900 text-center uppercase"
-                style={{ perspective: "2000px" }}
+                className="about-header space-y-[40px] pt-[120px] mb-[80px] text-zinc-900 text-center uppercase"
+                style={{ perspective: "1000px" }}
             >
                 <p className={clsx(
                     "desc text-[10px]",
@@ -138,7 +133,7 @@ export default function About() {
                 </p>
                 <h2
                     className={clsx(
-                        "title text-[50px] font-zentry leading-none origin-center rotate-x-[-40deg] rotate-y-[-70deg] rotate-z-[-45deg] translate-x-[-200px] translate-y-[100px]",
+                        "title text-[50px] font-zentry leading-none origin-center rotate-x-[-40deg] rotate-y-[-70deg] rotate-z-[-45deg] translate-y-[100px]",
                         "sm:text-[65px]",
                         "lg:text-[90px]"
                     )}
@@ -151,11 +146,11 @@ export default function About() {
 
             <div
                 id="about-content"
-                className="relative h-dvh"
+                className="relative h-screen"
             >
                 <div
                     ref={aboutImageWrapperRef}
-                    className="absolute w-full h-full scale-90"
+                    className="absolute w-full h-full"
                 >
                     <Image
                         src="/zentry/img/about.webp"

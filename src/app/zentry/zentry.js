@@ -11,7 +11,7 @@ gsap.registerPlugin(ScrollTrigger, SplitText);
 
 export default function Zentry() {
     return (
-        <main className="relative min-h-screen">
+        <main className="relative">
             {/* <Hero /> */}
             <About />
 
