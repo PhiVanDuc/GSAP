@@ -1,73 +1,28 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 
 import Image from "next/image";
+import AnimatedDesc from "./reuse/animated-desc";
+import AnimatedHeading from "./reuse/animated-heading";
 
-import clsx from "clsx";
 import gsap from "gsap";
-import { SplitText } from "gsap/SplitText";
-import ScrollTrigger from "gsap/ScrollTrigger";
 
 export default function About() {
-    const aboutImageWrapperRef = useRef();
-
-    useGSAP(() => {
-        const descSplit = SplitText.create(
-            ".about-header .desc",
-            { type: "words" }
-        );
-
-        const titleSplit = SplitText.create(
-            ".about-header .title",
-            { type: "words" }
-        );
-
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: ".about-header",
-                start: "50% bottom",
-                toggleActions: "restart none none reset",
-            }
-        });
-
-        tl.from(descSplit.words, {
-            opacity: 0,
-            stagger: 0.1,
-            duration: 0.5,
-            ease: "power2.out",
-        });
-
-        tl.to(".about-header .title", {
-            rotationX: 0,
-            rotationY: 0,
-            rotationZ: 0,
-            x: 0,
-            y: 0,
-            duration: 1,
-            ease: "power3.out",
-        }, "<");
-
-        tl.from(titleSplit.words, {
-            opacity: 0,
-            stagger: 0.1,
-            duration: 1,
-            ease: "power3.out",
-        }, "<");
-    }, []);
+    const aboutImageRef = useRef();
 
     const calcClipPathAboutImage = (element) => {
-        if (!element) return false;
         const width = element.offsetWidth;
 
         let finalWidth =
             width >= 1024 ? 400 :
             width >= 768 ? 350 :
-            300;
+            width >= 640 ? 300 :
+            250;
 
         const finalHeight = finalWidth * 1.5;
 
-        const x1 = ((width / 2) - (finalWidth / 2));
-        const x2 = ((width / 2) - (finalWidth / 2)) + finalWidth;
+        const x1 = (width - finalWidth) / 2;
+        const x2 = x1 + finalWidth;
         const y1 = 0;
         const y2 = finalHeight;
 
@@ -76,90 +31,60 @@ export default function About() {
         return `path("M ${x1} ${y1 + r} A ${r} ${r} 0 0 1 ${x1 + r} ${y1} L ${x2 - r} ${y1} A ${r} ${r} 0 0 1 ${x2} ${y1 + r} L ${x2} ${y2 - r} A ${r} ${r} 0 0 1 ${x2 - r} ${y2} L ${x1 + r} ${y2} A ${r} ${r} 0 0 1 ${x1} ${y2 - r} L ${x1} ${y1 + r} Z")`;
     }
 
-    useEffect(() => {
-        if (!aboutImageWrapperRef.current) return;
-
-        const clipPath = calcClipPathAboutImage(aboutImageWrapperRef.current);
-        aboutImageWrapperRef.current.style.clipPath = clipPath;
-        aboutImageWrapperRef.current.style.webkitClipPath = clipPath;
-    }, []);
-
-    useEffect(() => {
-        setTimeout(() => {
-            ScrollTrigger.refresh();
-        }, 500);
-    }, []);
-
     useGSAP(() => {
-        if (!aboutImageWrapperRef.current) return;
+        if (!aboutImageRef.current) return;
 
-        const width = aboutImageWrapperRef.current.offsetWidth;
-        const height = aboutImageWrapperRef.current.offsetHeight
+        const width = aboutImageRef.current.offsetWidth;
+        const height = aboutImageRef.current.offsetHeight
         const r = 10;
 
-        const startClip = calcClipPathAboutImage(aboutImageWrapperRef.current);
-        const endClip = `path("M ${0} ${0} A ${r} ${r} 0 0 1 ${0} ${0} L ${width} ${0} A ${r} ${r} 0 0 1 ${width} ${0} L ${width} ${height} A ${r} ${r} 0 0 1 ${width} ${height} L ${0} ${height} A ${r} ${r} 0 0 1 ${0} ${height} L ${0} ${0} Z")`;
+        const startPath = calcClipPathAboutImage(aboutImageRef.current);
+        const endPath = `path("M ${0} ${0} A ${r} ${r} 0 0 1 ${0} ${0} L ${width} ${0} A ${r} ${r} 0 0 1 ${width} ${0} L ${width} ${height} A ${r} ${r} 0 0 1 ${width} ${height} L ${0} ${height} A ${r} ${r} 0 0 1 ${0} ${height} L ${0} ${0} Z")`;
 
-        gsap.fromTo(
-            aboutImageWrapperRef.current,
+        aboutImageRef.current.style.clipPath = startPath;
+        aboutImageRef.current.style.webkitClipPath = startPath;
+
+        gsap.to(
+            aboutImageRef.current,
             {
-                clipPath: startClip
-            },
-            {
-                clipPath: endClip,
-                ease: "none",
+                clipPath: endPath,
                 scrollTrigger: {
-                    trigger: "#about-content",
+                    trigger: ".about-content",
                     start: "top top",
-                    end: "80% top",
-                    scrub: 0.5,
+                    end: "bottom top",
+                    scrub: true,
                     pin: true
-                },
+                }
             }
         );
     }, []);
-    
+
     return (
         <section className="about">
             <header
                 className="about-header space-y-[40px] pt-[120px] mb-[80px] text-zinc-900 text-center uppercase"
                 style={{ perspective: "1000px" }}
             >
-                <p className={clsx(
-                    "desc text-[10px]",
-                    "sm:text-[11px]"
-                )}>
-                    welcome to zentry
-                </p>
-                <h2
-                    className={clsx(
-                        "title text-[50px] font-zentry leading-none origin-center rotate-x-[-40deg] rotate-y-[-70deg] rotate-z-[-45deg] translate-y-[100px]",
-                        "sm:text-[65px]",
-                        "lg:text-[90px]"
-                    )}
-                    style={{ transformStyle: "preserve-3d" }}
-                >
-                    Discover the world&apos;s <br />
-                    largest shared adventure.
-                </h2>
+                <AnimatedDesc
+                    desc="welcome to zentry"
+                    triggerQuery=".about-header"
+                />
+
+                <AnimatedHeading
+                    heading={["discover the world's", "largest shared adventure."]}
+                    triggerQuery=".about-header"
+                />
             </header>
 
-            <div
-                id="about-content"
-                className="relative h-screen"
-            >
-                <div
-                    ref={aboutImageWrapperRef}
-                    className="absolute w-full h-full"
-                >
-                    <Image
-                        src="/zentry/img/about.webp"
-                        alt="About Image"
-                        width="4000"
-                        height="4000"
-                        className="size-full object-cover object-center"
-                    />
-                </div>
+            <div className="about-content relative h-screen">
+                <Image
+                    ref={aboutImageRef}
+                    src="/zentry/img/about.webp"
+                    alt="About Image"
+                    width="2000"
+                    height="2000"
+                    className="absolute top-0 left-0 size-full object-cover object-center"
+                />
             </div>
         </section>
     )

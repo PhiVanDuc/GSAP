@@ -170,7 +170,7 @@ export default function Hero() {
     }
     
     return (
-        <div className="relative w-dvw h-dvh overflow-hidden">
+        <div className="relative h-dvh overflow-hidden">
             <Loading isLoading={isLoadVideo && (loadedVideoCount < totalVideosNeedLoad)} />
 
             <div className="group absolute-center preview-size z-20">

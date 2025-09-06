@@ -12,7 +12,7 @@ gsap.registerPlugin(ScrollTrigger, SplitText);
 export default function Zentry() {
     return (
         <main className="relative">
-            {/* <Hero /> */}
+            <Hero />
             <About />
 
             <div className="h-[2000px]" />
