@@ -48,6 +48,7 @@ export default function About() {
             aboutImageRef.current,
             {
                 clipPath: endPath,
+                scale: 1,
                 scrollTrigger: {
                     trigger: ".about-content",
                     start: "top top",
@@ -63,7 +64,7 @@ export default function About() {
         <section className="about">
             <header
                 className="about-header space-y-[40px] pt-[120px] mb-[80px] text-zinc-900 text-center uppercase"
-                style={{ perspective: "1000px" }}
+                // style={{ perspective: "1000px" }}
             >
                 <AnimatedDesc
                     desc="welcome to zentry"
@@ -83,7 +84,7 @@ export default function About() {
                     alt="About Image"
                     width="2000"
                     height="2000"
-                    className="absolute top-0 left-0 size-full object-cover object-center"
+                    className="absolute top-0 left-0 size-full object-cover object-center scale-90"
                 />
             </div>
         </section>
