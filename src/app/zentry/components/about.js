@@ -54,63 +54,74 @@ export default function About() {
         }, "<");
     }, []);
 
+    const calcClipPathAboutImage = (element) => {
+        if (!element) return false;
+        const width = element.offsetWidth;
+
+        let finalWidth =
+            width >= 1024 ? 400 :
+            width >= 768 ? 350 :
+            300;
+
+        const finalHeight = finalWidth * 1.5;
+
+        const x1 = ((width / 2) - (finalWidth / 2));
+        const x2 = ((width / 2) - (finalWidth / 2)) + finalWidth;
+        const y1 = 0;
+        const y2 = finalHeight;
+
+        const r = 10;
+
+        return `path("M ${x1} ${y1 + r} A ${r} ${r} 0 0 1 ${x1 + r} ${y1} L ${x2 - r} ${y1} A ${r} ${r} 0 0 1 ${x2} ${y1 + r} L ${x2} ${y2 - r} A ${r} ${r} 0 0 1 ${x2 - r} ${y2} L ${x1 + r} ${y2} A ${r} ${r} 0 0 1 ${x1} ${y2 - r} L ${x1} ${y1 + r} Z")`;
+    }
+
     useEffect(() => {
-        const wrapper = aboutImageWrapperRef.current;
-        if (!wrapper) return;
+        if (!aboutImageWrapperRef.current) return;
 
-        let tween;
+        const updateClipPath = () => {
+            const clipPath = calcClipPathAboutImage(aboutImageWrapperRef.current);
+            aboutImageWrapperRef.current.style.clipPath = clipPath;
+            aboutImageWrapperRef.current.style.webkitClipPath = clipPath;
+        };
 
-        const handleResize = () => {
-            if (tween) {
-                tween.kill();
-                tween = undefined;
-            }
+        updateClipPath();
 
-            const width = wrapper.offsetWidth;
-            const height = wrapper.offsetHeight;
+        const resizeObserver = new ResizeObserver(() => updateClipPath());
+        resizeObserver.observe(aboutImageWrapperRef.current);
 
-            let finalWidth =
-                width >= 1024 ? 400 :
-                width >= 768 ? 350 :
-                300;
+        return () => resizeObserver.disconnect();
+    }, []);
 
-            const finalHeight = finalWidth * 1.5;
+    useGSAP(() => {
+        if (!aboutImageWrapperRef.current) return;
 
-            const x1 = ((width / 2) - (finalWidth / 2));
-            const x2 = ((width / 2) - (finalWidth / 2)) + finalWidth;
-            const y1 = 0;
-            const y2 = finalHeight;
+        const width = aboutImageWrapperRef.current.offsetWidth;
+        const height = aboutImageWrapperRef.current.offsetHeight
+        const r = 10;
 
-            const r = 10;
+        const startClip = calcClipPathAboutImage(aboutImageWrapperRef.current);
+        const endClip = `path("M ${0} ${0} A ${r} ${r} 0 0 1 ${0} ${0} L ${width} ${0} A ${r} ${r} 0 0 1 ${width} ${0} L ${width} ${height} A ${r} ${r} 0 0 1 ${width} ${height} L ${0} ${height} A ${r} ${r} 0 0 1 ${0} ${height} L ${0} ${0} Z")`;
 
-            const startPath = `path("M ${x1} ${y1 + r} A ${r} ${r} 0 0 1 ${x1 + r} ${y1} L ${x2 - r} ${y1} A ${r} ${r} 0 0 1 ${x2} ${y1 + r} L ${x2} ${y2 - r} A ${r} ${r} 0 0 1 ${x2 - r} ${y2} L ${x1 + r} ${y2} A ${r} ${r} 0 0 1 ${x1} ${y2 - r} L ${x1} ${y1 + r} Z")`;
-
-            const endPath = `path("M ${0} ${0} A ${r} ${r} 0 0 1 ${0} ${0} L ${width} ${0} A ${r} ${r} 0 0 1 ${width} ${0} L ${width} ${height} A ${r} ${r} 0 0 1 ${width} ${height} L ${0} ${height} A ${r} ${r} 0 0 1 ${0} ${height} L ${0} ${0} Z")`;
-
-            tween = gsap.fromTo(
-                wrapper,
-                {
-                    clipPath: startPath,
-                    scale: 0.8
+        gsap.fromTo(
+            aboutImageWrapperRef.current,
+            {
+                clipPath: startClip,
+                scale: 0.9
+            },
+            {
+                clipPath: endClip,
+                scale: 1,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "#about-content",
+                    start: "top top",
+                    end: "80% top",
+                    scrub: 0.5,
+                    pin: true,
+                    pinSpacer: false
                 },
-                {
-                    scrollTrigger: {
-                        trigger: "#about-content",
-                        start: "top top",
-                        end: "80% top",
-                        scrub: 0.3,
-                        pin: true
-                    },
-                    clipPath: endPath,
-                    scale: 1
-                }
-            )
-        }
-
-        handleResize();
-        window.addEventListener("resize", handleResize);
-
-        return () => window.removeEventListener("resize", handleResize);
+            }
+        );
     }, []);
     
     return (
@@ -144,7 +155,7 @@ export default function About() {
             >
                 <div
                     ref={aboutImageWrapperRef}
-                    className="absolute w-dvw h-full"
+                    className="absolute w-full h-full scale-90"
                 >
                     <Image
                         src="/zentry/img/about.webp"
