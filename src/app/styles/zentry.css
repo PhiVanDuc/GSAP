@@ -52,6 +52,7 @@
 body {
   background-color: #dfdff0;
   font-family: var(--font-sans);
+  @apply text-zinc-900;
 }
 
 @utility special-zentry-font {
@@ -82,9 +83,5 @@ body {
 
   .hero-video-box {
     clip-path: polygon(0 0%, 100% 0, 100% 100%, 0 100%);
-  }
-
-  .hero-button {
-    clip-path: path("M 10,0 L 170,0 A 10,10 0,0,1 180,10 L 180,36 A 10,10 0,0,1 170,46 L 10,46 A 10,10 0,0,1 0,36 L 0,10 A 10,10 0,0,1 10,0 Z");
   }
 }

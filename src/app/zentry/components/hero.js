@@ -124,47 +124,6 @@ export default function Hero() {
         setTimeout(() => { cooldownRef.current = false }, 1500);
     }
 
-    const handleMouseEnter = (e) => {
-        gsap.to(
-            e.target, {
-                height: "56px",
-                clipPath: 'path("M 10,0 L 170,10 A 10,10 0,0,1 180,20 L 180,46 A 10,10 0,0,1 170,56 L 10,56 A 10,10 0,0,1 0,46 L 0,10 A 10,10 0,0,1 10,0 Z")',
-                duration: 0.3,
-                ease: "power1.inOut"
-            }
-        );
-
-        gsap.to(
-            ".hero-button-content",
-            {
-                marginBottom: "-8px",
-                duration: 0.3,
-                ease: "power1.inOut"
-            }
-        );
-    }
-
-    const handlePointerLeave = (e) => {
-        gsap.to(
-            e.target,
-            {
-                height: "46px",
-                clipPath: 'path("M 10,0 L 170,0 A 10,10 0,0,1 180,10 L 180,36 A 10,10 0,0,1 170,46 L 10,46 A 10,10 0,0,1 0,36 L 0,10 A 10,10 0,0,1 10,0 Z")',
-                duration: 0.3,
-                ease: "power1.inOut"
-            }
-        );
-
-        gsap.to(
-            ".hero-button-content",
-            {
-                marginBottom: "0px",
-                duration: 0.3,
-                ease: "power1.inOut"
-            }
-        );
-    }
-
     const handleVideoLoading = () => {
         setLoadedVideoCount(prev => prev + 1);
     }
@@ -237,11 +196,9 @@ export default function Hero() {
 
                     <button
                         className={clsx(
-                            "hero-button flex items-center justify-center w-[180px] h-[46px] text-xs text-zinc-800 uppercase bg-yellow-300 cursor-pointer",
-                            "mt-auto sm:mt-0"
+                            "hero-button flex items-center justify-center mt-auto px-[25px] py-[12px] text-xs text-zinc-800 uppercase bg-yellow-300 rounded-full cursor-pointer",
+                            "sm:mt-0"
                         )}
-                        onMouseEnter={handleMouseEnter}
-                        onPointerLeave={handlePointerLeave}
                     >
                         <div className="hero-button-content flex items-center gap-[8px] h-fit">
                             <TiLocationArrow size={20} />
