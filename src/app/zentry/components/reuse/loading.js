@@ -2,8 +2,10 @@
 
 import { useGSAP } from "@gsap/react";
 
+import Logo from "./logo";
+
 import gsap from "gsap";
-import clsx from "clsx";
+import { cn } from "@/utils/cn";
 import SplitText from "gsap/SplitText";
 
 export default function Loading({ className, isLoading }) {
@@ -66,16 +68,12 @@ export default function Loading({ className, isLoading }) {
 
     return (
         <div
-            className={clsx(
+            className={cn(
                 "zentry-loading fixed inset-0 flex items-center justify-center gap-[25px] bg-indigo-600 z-50",
                 className
             )}
         >
-            <div className="rotate-z-[12deg] w-fit h-fit">
-                <div className="zentry-logo-right w-[30px] aspect-square bg-blue-50 translate-x-[2px] translate-y-[5px]" />
-                <div className="zentry-logo-left w-[30px] aspect-square bg-blue-50 translate-x-[-2px] translate-y-[-5px]" />
-            </div>
-
+            <Logo />
             <p className="logo-label text-[40px] text-blue-50 font-semibold font-zentry">Zentry</p>
         </div>
     )

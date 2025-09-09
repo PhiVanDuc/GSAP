@@ -5,8 +5,8 @@ import Image from "next/image";
 import AnimatedDesc from "./reuse/animated-desc";
 import AnimatedHeading from "./reuse/animated-heading";
 
-import clsx from "clsx";
 import gsap from "gsap";
+import { cn } from "@/utils/cn";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
 export default function About() {
@@ -137,7 +137,7 @@ export default function About() {
                     className="absolute left-0 right-0 flex flex-col items-center gap-[5px] px-[20px] text-[16px] text-center z-0"
                 >
                     <p className="font-medium">The Metagame begins - your life, now an epic MMORPG</p>
-                    <p className={clsx(
+                    <p className={cn(
                         "text-zinc-500",
                         "md:max-w-[580px]"
                     )}>

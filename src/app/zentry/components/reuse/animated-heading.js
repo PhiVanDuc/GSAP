@@ -3,8 +3,8 @@
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 
-import clsx from "clsx";
 import gsap from "gsap";
+import { cn } from "@/utils/cn";
 import SplitText from "gsap/SplitText";
 
 export default function AnimatedHeading({
@@ -61,7 +61,7 @@ export default function AnimatedHeading({
     return (
         <h2
             ref={headingRef}
-            className={clsx(
+            className={cn(
                 "title text-[50px] font-zentry leading-none origin-center rotate-x-[-40deg] rotate-y-[-70deg] rotate-z-[-45deg]",
                 "sm:text-[65px]",
                 "lg:text-[90px]"

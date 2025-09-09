@@ -84,4 +84,16 @@ body {
   .hero-video-box {
     clip-path: polygon(0 0%, 100% 0, 100% 100%, 0 100%);
   }
+
+  .zentry-navbar-down {
+    transform: translateY(-100%);
+    opacity: 0;
+    background-color: oklch(21% 0.006 285.885 / 0);
+  }
+
+  .zentry-navbar-on {
+    transform: translateY(0%);
+    opacity: 1;
+    background-color: oklch(21% 0.006 285.885 / 1);
+  }
 }

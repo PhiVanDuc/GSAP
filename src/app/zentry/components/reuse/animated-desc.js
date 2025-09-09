@@ -3,8 +3,8 @@
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 
-import clsx from "clsx";
 import gsap from "gsap";
+import { cn } from "@/utils/cn";
 import SplitText from "gsap/SplitText";
 
 export default function AnimatedDesc({ desc, triggerQuery = "" }) {
@@ -37,7 +37,7 @@ export default function AnimatedDesc({ desc, triggerQuery = "" }) {
     return (
         <p
             ref={descRef}
-            className={clsx(
+            className={cn(
                 "text-[10px]",
                 "sm:text-[11px]"
             )}

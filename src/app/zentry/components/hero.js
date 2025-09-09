@@ -2,11 +2,12 @@ import { useGSAP } from "@gsap/react";
 import { useState, useRef, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
 
-import Loading from "@/components/loading";
 import { TiLocationArrow } from "react-icons/ti";
+import Button from "@/app/zentry/components/reuse/button";
+import Loading from "@/app/zentry/components/reuse/loading";
 
 import gsap from "gsap";
-import clsx from "clsx";
+import { cn } from "@/utils/cn";
 
 export default function Hero() {
     const expandVideoRef = useRef();
@@ -133,7 +134,7 @@ export default function Hero() {
             <Loading isLoading={isLoadVideo && (loadedVideoCount < totalVideosNeedLoad)} />
 
             <div className="group absolute-center preview-size z-20">
-                <div className={clsx(
+                <div className={cn(
                     "preview-video-wrapper size-full origin-center transition-all duration-500 ease-out",
                     "md:scale-0 md:group-hover:scale-100 md:opacity-0 md:group-hover:opacity-100"
                 )}>
@@ -175,18 +176,18 @@ export default function Hero() {
                     onLoadedData={handleVideoLoading}
                 />
 
-                <header className={clsx(
-                    "hero-content flex flex-col items-center absolute top-[60px] bottom-[40px] left-[20px] right-[20px] z-10",
-                    "sm:items-start sm:top-[100px] sm:bottom-auto sm:left-[40px] sm:right-0"
+                <header className={cn(
+                    "hero-content flex flex-col items-center absolute top-[100px] bottom-[40px] left-[20px] right-[20px] z-10",
+                    "sm:items-start sm:bottom-auto sm:left-[40px] sm:right-0"
                 )}>
-                    <h1 className={clsx(
+                    <h1 className={cn(
                         "hero-header text-blue-50 mb-[15px]",
                         "lg:mb-[5px]"
                     )}>
                         REDEFI<b className="special-zentry-font">N</b>E
                     </h1>
 
-                    <p className={clsx(
+                    <p className={cn(
                         "font-robert-regular mb-[30px] text-blue-100 text-center",
                         "sm:text-[18px] sm:text-left"
                     )}>
@@ -194,20 +195,14 @@ export default function Hero() {
                         Unleash the Play Economy
                     </p>
 
-                    <button
-                        className={clsx(
-                            "hero-button flex items-center justify-center mt-auto px-[25px] py-[12px] text-xs text-zinc-800 uppercase bg-yellow-300 rounded-full cursor-pointer",
-                            "sm:mt-0"
-                        )}
-                    >
-                        <div className="hero-button-content flex items-center gap-[8px] h-fit">
-                            <TiLocationArrow size={20} />
-                            <span>watch trailer</span>
-                        </div>
-                    </button>
+                    <Button
+                        label="watch trailer"
+                        icon={<TiLocationArrow size={18} />}
+                        className="mt-auto sm:mt-0 uppercase"
+                    />
                 </header>
 
-                <h2 className={clsx(
+                <h2 className={cn(
                     "hero-mask-header hidden hero-header absolute bottom-[20px] right-[50px] text-blue-50 z-10",
                     "sm:block"
                 )}>
@@ -215,7 +210,7 @@ export default function Hero() {
                 </h2>
             </div>
 
-            <h2 className={clsx(
+            <h2 className={cn(
                 "hero-mask-header hidden hero-header absolute bottom-[20px] right-[50px] text-zinc-800 -z-10",
                 "sm:block"
             )}>
