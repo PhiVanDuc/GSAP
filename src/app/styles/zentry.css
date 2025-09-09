@@ -100,4 +100,8 @@ body {
     opacity: 1;
     background-color: oklch(21% 0.006 285.885 / 1);
   }
+
+  .feature-card-title {
+    @apply md:text-6xl text-4xl font-black font-zentry uppercase
+  }
 }
