@@ -2,16 +2,15 @@
 
 import { useRef, useState } from "react";
 
+import TiltedCard from "./reuse/tilted-card";
 import { TiLocationArrow } from "react-icons/ti";
-import { cn } from "@/utils/cn";
 
 // Component chung cho các thẻ
 function CardTemplate({
     src,
     title,
     desc,
-    isComingSoon,
-    classNameContainer
+    isComingSoon
 }) {
     const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
     const [hoverOpacity, setHoverOpacity] = useState(0);
@@ -31,10 +30,7 @@ function CardTemplate({
     const handleMouseLeave = () => setHoverOpacity(0);
 
     return (
-        <div className={cn(
-            "relative size-full rounded-[15px] border border-zinc-700 overflow-hidden",
-            classNameContainer
-        )}>
+        <div className="relative size-full rounded-[15px] border border-zinc-700 overflow-hidden">
             <video
                 src={src}
                 loop
@@ -96,70 +92,78 @@ export default function Features() {
             </div>
 
             <div className="space-y-[20px]">
-                <CardTemplate
-                    src="/zentry/videos/feature-1.mp4"
-                    title={
-                        <>
-                            radia<b className="sepcial-zentry-font">n</b>t
-                        </>
-                    }
-                    desc="A cross-platform metagame app, turning your activities across Web2 and Web3 games into a rewarding adventure."
-                    isComingSoon={true}
-                    classNameContainer="h-[400px] sm:h-[500px]"
-                />
+                <TiltedCard>
+                    <CardTemplate
+                        src="/zentry/videos/feature-1.mp4"
+                        title={
+                            <>
+                                radia<b className="sepcial-zentry-font">n</b>t
+                            </>
+                        }
+                        desc="A cross-platform metagame app, turning your activities across Web2 and Web3 games into a rewarding adventure."
+                        isComingSoon={true}
+                    />
+                </TiltedCard>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-[20px]">
-                    <CardTemplate
-                        src="/zentry/videos/feature-2.mp4"
-                        title={
-                            <>
-                                zig<b className="sepcial-zentry-font">m</b>a
-                            </>
-                        }
-                        desc="An anime and gaming-inspired NFT collection - the IP primed for expansion."
-                        isComingSoon={true}
-                        classNameContainer="h-[400px] sm:h-full sm:row-span-2"
-                    />
+                    <TiltedCard className="sm:!h-full sm:row-span-2">
+                        <CardTemplate
+                            src="/zentry/videos/feature-2.mp4"
+                            title={
+                                <>
+                                    zig<b className="sepcial-zentry-font">m</b>a
+                                </>
+                            }
+                            desc="An anime and gaming-inspired NFT collection - the IP primed for expansion."
+                            isComingSoon={true}
+                        />
+                    </TiltedCard>
 
-                    <CardTemplate
-                        src="/zentry/videos/feature-3.mp4"
-                        title={
-                            <>
-                                n<b className="sepcial-zentry-font">e</b>xus
-                            </>
-                        }
-                        desc="A gamified social hub, adding a new dimension of play to social interaction for Web3 communities."
-                        isComingSoon={true}
-                        classNameContainer="h-[400px]"
-                    />
+                    <TiltedCard>
+                        <CardTemplate
+                            src="/zentry/videos/feature-3.mp4"
+                            title={
+                                <>
+                                    n<b className="sepcial-zentry-font">e</b>xus
+                                </>
+                            }
+                            desc="A gamified social hub, adding a new dimension of play to social interaction for Web3 communities."
+                            isComingSoon={true}
+                        />
+                    </TiltedCard>
 
-                    <CardTemplate
-                        src="/zentry/videos/feature-4.mp4"
-                        title={
-                            <>
-                                az<b className="sepcial-zentry-font">u</b>l
-                            </>
-                        }
-                        desc="A cross-world AI Agent - elevating your gameplay to be more fun and productive."
-                        isComingSoon={true}
-                        classNameContainer="h-[400px]"
-                    />
+                    <TiltedCard>
+                        <CardTemplate
+                            src="/zentry/videos/feature-4.mp4"
+                            title={
+                                <>
+                                    az<b className="sepcial-zentry-font">u</b>l
+                                </>
+                            }
+                            desc="A cross-world AI Agent - elevating your gameplay to be more fun and productive."
+                            isComingSoon={true}
+                        />
+                    </TiltedCard>
 
-                    <div className="flex size-full flex-col justify-between bg-violet-300 p-5 h-[400px] sm:h-[500px] rounded-[15px]">
-                        <h1 className="feature-card-title max-w-64 text-black">
-                            M<b className="sepcial-zentry-font">o</b>re co<b className="sepcial-zentry-font">m</b>ing s<b className="sepcial-zentry-font">o</b>on.
-                        </h1>
+                    <TiltedCard>
+                        <div className="flex size-full flex-col justify-between bg-violet-300 p-5 h-[400px] sm:h-[500px] rounded-[15px]">
+                            <h1 className="feature-card-title max-w-64 text-black">
+                                M<b className="sepcial-zentry-font">o</b>re co<b className="sepcial-zentry-font">m</b>ing s<b className="sepcial-zentry-font">o</b>on.
+                            </h1>
 
-                        <TiLocationArrow className="m-5 scale-[5] self-end" />
-                    </div>
+                            <TiLocationArrow className="m-5 scale-[5] self-end" />
+                        </div>
+                    </TiltedCard>
 
-                    <video
-                        src="/zentry/videos/feature-5.mp4"
-                        loop
-                        muted
-                        autoPlay
-                        className="size-full object-cover object-center rounded-[15px] h-[400px] sm:h-[500px]"
-                    />
+                    <TiltedCard>
+                        <video
+                            src="/zentry/videos/feature-5.mp4"
+                            loop
+                            muted
+                            autoPlay
+                            className="size-full object-cover object-center rounded-[15px] h-[400px] sm:h-[500px]"
+                        />
+                    </TiltedCard>
                 </div>
             </div>
         </section>
