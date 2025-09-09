@@ -130,7 +130,7 @@ export default function Hero() {
     }
     
     return (
-        <div className="relative h-dvh overflow-hidden">
+        <section className="relative h-dvh overflow-hidden">
             <Loading isLoading={isLoadVideo && (loadedVideoCount < totalVideosNeedLoad)} />
 
             <div className="group absolute-center preview-size z-20">
@@ -216,6 +216,6 @@ export default function Hero() {
             )}>
                 G<b className="special-zentry-font">A</b>MING
             </h2>
-        </div>
+        </section>
     )
 }

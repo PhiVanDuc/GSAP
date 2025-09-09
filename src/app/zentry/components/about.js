@@ -11,10 +11,11 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 
 export default function About() {
     const aboutImageRef = useRef();
+    const aboutContentRef = useRef();
     const aboutImageDescRef = useRef();
 
-    const calcClipPathAboutImage = (element) => {
-        const width = element.offsetWidth;
+    const calcClipPathAboutImage = () => {
+        const width = aboutContentRef.current.getBoundingClientRect().width;
 
         let finalWidth =
             width >= 1024 ? 400 :
@@ -36,7 +37,7 @@ export default function About() {
     }
 
     useGSAP(() => {
-        if (!aboutImageRef.current || !aboutImageDescRef.current) return;
+        if (!aboutImageRef.current || !aboutContentRef.current || !aboutImageDescRef.current) return;
 
         let tween, timeout;
 
@@ -47,8 +48,8 @@ export default function About() {
                 tween = undefined;
             }
 
-            const width = aboutImageRef.current.offsetWidth;
-            const height = aboutImageRef.current.offsetHeight
+            const width = aboutContentRef.current.getBoundingClientRect().width;
+            const height = aboutContentRef.current.getBoundingClientRect().height;
             const r = 10;
 
             const startPath = calcClipPathAboutImage(aboutImageRef.current);
@@ -91,6 +92,7 @@ export default function About() {
 
         return () => {
             if (tween) {
+                if (tween.scrollTrigger) tween.scrollTrigger.kill();
                 tween.kill();
                 tween = undefined;
             }
@@ -122,7 +124,10 @@ export default function About() {
                 />
             </header>
 
-            <div className="about-content relative h-screen">
+            <div
+                ref={aboutContentRef}
+                className="about-content relative h-screen"
+            >
                 <Image
                     ref={aboutImageRef}
                     src="/zentry/img/about.webp"

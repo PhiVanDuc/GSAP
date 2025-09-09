@@ -73,6 +73,10 @@ body {
 }
 
 @layer components {
+  .section-padding {
+    @apply px-[20px] sm:px-[40px] md:px-[60px] lg:px-[80px] xl:px-[100px];
+  }
+
   .zentry-logo-right {
     clip-path: polygon(0 50%, 100% 0, 50% 100%, 50% 50%);
   }
