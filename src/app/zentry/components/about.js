@@ -49,7 +49,7 @@ export default function About() {
             }
 
             const width = aboutContentRef.current.getBoundingClientRect().width;
-            const height = aboutContentRef.current.getBoundingClientRect().height;
+            const height = aboutContentRef.current.getBoundingClientRect().height + 1;
             const r = 10;
 
             const startPath = calcClipPathAboutImage(aboutImageRef.current);
