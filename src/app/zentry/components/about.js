@@ -66,7 +66,7 @@ export default function About() {
                     scrollTrigger: {
                         trigger: ".about-content",
                         start: "top top",
-                        end: "bottom top",
+                        end: `bottom top`,
                         scrub: true,
                         pin: true
                     }

@@ -1,7 +1,7 @@
 "use client"
 
 import Hero from "./components/hero";
-// import About from "./components/about";
+import About from "./components/about";
 import Features from "./components/features";
 import Story from "./components/story";
 
@@ -15,11 +15,9 @@ export default function Zentry() {
     return (
         <main className="relative">
             <Hero />
-            {/* <About /> */}
+            <About />
             <Features />
             <Story />
-
-            <div className="h-[2000px] w-full" />
         </main>
     )
 }
