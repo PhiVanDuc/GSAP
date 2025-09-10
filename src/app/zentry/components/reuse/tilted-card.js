@@ -31,44 +31,26 @@ export default function TiltedCard({
     };
 
     return (
-        <>
+        <div
+            ref={itemRef}
+            className={cn(
+                "h-[400px] cursor-pointer",
+                "sm:h-[500px]",
+                className
+            )}
             {
-                isMobile ?
-                (
-                    <div
-                        ref={itemRef}
-                        className={cn(
-                            "h-[400px] cursor-pointer",
-                            "sm:h-[500px]",
-                            className
-                        )}
-                        style={{
-                            transform: "perspective(700px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)",
-                            transition: "transform 0.3s ease-out",
-                        }}
-                    >
-                        {children}
-                    </div>
-                ) :
-                (
-                    <div
-                        ref={itemRef}
-                        className={cn(
-                            "h-[400px] cursor-pointer",
-                            "sm:h-[500px]",
-                            className
-                        )}
-                        onMouseMove={handleMouseMove}
-                        onMouseLeave={handleMouseLeave}
-                        style={{
-                            transform: "perspective(700px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)",
-                            transition: "transform 0.3s ease-out",
-                        }}
-                    >
-                        {children}
-                    </div>
-                )
+                ...(!isMobile && {
+                    onMouseMove: handleMouseMove,
+                    onMouseLeave: handleMouseLeave,
+                    style: {
+                        transform:
+                            "perspective(700px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)",
+                        transition: "transform 0.3s ease-out",
+                    },
+                })
             }
-        </>
+        >
+            {children}
+        </div>
     )
 }

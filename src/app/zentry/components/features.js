@@ -1,6 +1,7 @@
 "use client"
 
 import { useRef, useState } from "react";
+import { useMediaQuery } from "react-responsive";
 
 import TiltedCard from "./reuse/tilted-card";
 import { TiLocationArrow } from "react-icons/ti";
@@ -14,9 +15,11 @@ function CardTemplate({
     desc,
     isComingSoon
 }) {
+    const hoverButtonRef = useRef(null);
+    const isMobile = useMediaQuery({ maxWidth: 1023 });
+
     const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
     const [hoverOpacity, setHoverOpacity] = useState(0);
-    const hoverButtonRef = useRef(null);
 
     const handleMouseMove = (event) => {
         if (!hoverButtonRef.current) return;
@@ -62,17 +65,27 @@ function CardTemplate({
                     isComingSoon && (
                         <div
                             ref={hoverButtonRef}
-                            onMouseMove={handleMouseMove}
-                            onMouseEnter={handleMouseEnter}
-                            onMouseLeave={handleMouseLeave}
                             className="border-hsla relative flex w-fit cursor-pointer items-center gap-1 overflow-hidden rounded-full bg-black px-5 py-2 text-xs uppercase text-white/20"
+                            {
+                                ...(!isMobile && {
+                                    onMouseMove: handleMouseMove,
+                                    onMouseEnter: handleMouseEnter,
+                                    onMouseLeave: handleMouseLeave
+                                })
+                            }
                         >
                             <div
                                 className="pointer-events-none absolute -inset-px opacity-0 transition duration-300"
-                                style={{
-                                    opacity: hoverOpacity,
-                                    background: `radial-gradient(100px circle at ${cursorPosition.x}px ${cursorPosition.y}px, #656fe288, #00000026)`,
-                                }}
+                                {
+                                    ...(!isMobile && {
+                                        onMouseMove: handleMouseMove,
+                                        onMouseLeave: handleMouseLeave,
+                                        style: {
+                                            opacity: hoverOpacity,
+                                            background: `radial-gradient(100px circle at ${cursorPosition.x}px ${cursorPosition.y}px, #656fe288, #00000026)`,
+                                        }
+                                    })
+                                }
                             />
                             <TiLocationArrow className="relative z-20" />
                             <p className="relative z-20">coming soon</p>
