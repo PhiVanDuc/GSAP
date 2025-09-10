@@ -5,6 +5,8 @@ import { useRef, useState } from "react";
 import TiltedCard from "./reuse/tilted-card";
 import { TiLocationArrow } from "react-icons/ti";
 
+import { cn } from "@/utils/cn";
+
 // Component chung cho các thẻ
 function CardTemplate({
     src,
@@ -44,7 +46,14 @@ function CardTemplate({
                     (title && desc) && (
                         <div>
                             <h1 className="feature-card-title">{title}</h1>
-                            <p className="mt-3 max-w-64 text-xs md:text-base">{desc}</p>
+                            <p
+                                className={cn(
+                                    "mt-3 max-w-64 text-xs",
+                                    "md:text-base"
+                                )}
+                            >
+                                {desc}
+                            </p>
                         </div>
                     )
                 }
@@ -105,7 +114,10 @@ export default function Features() {
                     />
                 </TiltedCard>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-[20px]">
+                <div className={cn(
+                    "grid grid-cols-1 gap-[20px]",
+                    "sm:grid-cols-2"
+                )}>
                     <TiltedCard className="sm:!h-full sm:row-span-2">
                         <CardTemplate
                             src="/zentry/videos/feature-2.mp4"
@@ -146,7 +158,10 @@ export default function Features() {
                     </TiltedCard>
 
                     <TiltedCard>
-                        <div className="flex size-full flex-col justify-between bg-violet-300 p-5 h-[400px] sm:h-[500px] rounded-[15px]">
+                        <div className={cn(
+                            "flex size-full flex-col justify-between bg-violet-300 p-5 h-[400px] rounded-[15px]",
+                            "sm:h-[500px]"
+                        )}>
                             <h1 className="feature-card-title max-w-64 text-black">
                                 M<b className="sepcial-zentry-font">o</b>re co<b className="sepcial-zentry-font">m</b>ing s<b className="sepcial-zentry-font">o</b>on.
                             </h1>
@@ -161,7 +176,10 @@ export default function Features() {
                             loop
                             muted
                             autoPlay
-                            className="size-full object-cover object-center rounded-[15px] h-[400px] sm:h-[500px]"
+                            className={cn(
+                                "size-full object-cover object-center rounded-[15px] h-[400px]",
+                                "sm:h-[500px]"
+                            )}
                         />
                     </TiltedCard>
                 </div>

@@ -7,7 +7,7 @@ import gsap from "gsap";
 import { cn } from "@/utils/cn";
 import SplitText from "gsap/SplitText";
 
-export default function AnimatedDesc({ desc, triggerQuery = "" }) {
+export default function AnimatedDesc({ desc, triggerQuery = "", className }) {
     const descRef = useRef();
 
     useGSAP(() => {
@@ -38,8 +38,9 @@ export default function AnimatedDesc({ desc, triggerQuery = "" }) {
         <p
             ref={descRef}
             className={cn(
-                "text-[10px]",
-                "sm:text-[11px]"
+                "text-[10px] font-general",
+                "sm:text-[11px]",
+                className
             )}
         >
             {desc}

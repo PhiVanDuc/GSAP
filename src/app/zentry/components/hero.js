@@ -198,7 +198,10 @@ export default function Hero() {
                     <Button
                         label="watch trailer"
                         icon={<TiLocationArrow size={18} />}
-                        className="mt-auto sm:mt-0 uppercase"
+                        className={cn(
+                            "mt-auto uppercase",
+                            "sm:mt-0"
+                        )}
                     />
                 </header>
 

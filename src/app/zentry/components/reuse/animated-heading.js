@@ -10,7 +10,8 @@ import SplitText from "gsap/SplitText";
 export default function AnimatedHeading({
     heading = [],
     triggerQuery = "",
-    delay = 0
+    delay = 0,
+    className = ""
 }) {
     const headingRef = useRef();
 
@@ -64,7 +65,8 @@ export default function AnimatedHeading({
             className={cn(
                 "title text-[50px] font-zentry leading-none origin-center rotate-x-[-40deg] rotate-y-[-70deg] rotate-z-[-45deg]",
                 "sm:text-[65px]",
-                "lg:text-[90px]"
+                "lg:text-[90px]",
+                className
             )}
             style={{ transformStyle: "preserve-3d" }}
         >

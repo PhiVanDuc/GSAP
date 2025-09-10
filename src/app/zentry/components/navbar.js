@@ -56,7 +56,7 @@ export default function Navbar() {
     return (
         <nav
             ref={navbarRef}
-            className="fixed top-[15px] left-[20px] right-[20px] px-[25px] py-[15px] flex items-center justify-between bg-[oklch(21% 0.006 285.885 / 0)] rounded-[15px] translate-y-[0%] opacity-100 transition-all duration-500 ease-in-out z-50"
+            className="fixed top-[15px] left-[15px] right-[15px] px-[25px] py-[15px] flex items-center justify-between bg-[oklch(21% 0.006 285.885 / 0)] rounded-[15px] translate-y-[0%] opacity-100 transition-all duration-500 ease-in-out z-50"
         >
             <div className="flex items-center gap-[30px]">
                 <Logo

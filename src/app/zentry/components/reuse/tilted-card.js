@@ -31,7 +31,8 @@ export default function TiltedCard({
         <div
             ref={itemRef}
             className={cn(
-                "h-[400px] sm:h-[500px]",
+                "h-[400px] cursor-pointer",
+                "sm:h-[500px]",
                 className
             )}
             onMouseMove={handleMouseMove}
