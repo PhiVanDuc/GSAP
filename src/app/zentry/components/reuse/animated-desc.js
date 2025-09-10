@@ -27,7 +27,7 @@ export default function AnimatedDesc({ desc, triggerQuery = "", className }) {
                 ease: "power3.out",
                 scrollTrigger: {
                     trigger: triggerQuery,
-                    start: "50% bottom",
+                    start: "top bottom",
                     toggleActions: "restart none none reset",
                 }
             }

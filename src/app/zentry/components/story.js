@@ -1,34 +1,16 @@
 "use client"
 
 import { useEffect, useRef } from "react";
-import { useGSAP } from "@gsap/react";
 
 import Image from "next/image";
 import AnimatedDesc from "./reuse/animated-desc";
 import AnimatedHeading from "./reuse/animated-heading";
 
-import gsap from "gsap";
 import { cn } from "@/utils/cn";
 
 export default function Story() {
     const storyRef = useRef();
     const storyImageRef = useRef();
-
-    useGSAP(() => {
-        gsap.to(
-            storyRef.current,
-            {
-                scrollTrigger: {
-                    trigger: storyRef.current,
-                    start: "90% bottom",
-                    end: "bottom bottom",
-                    toggleActions: "restart none none reset"
-                },
-                backgroundColor: "#DFDFF0",
-                duration: 0.1
-            }
-        );
-    }, []);
 
     const getSkewByBreakpoint = () => {
         const width = window.innerWidth;
@@ -115,8 +97,6 @@ export default function Story() {
                         )}
                     />
                 </div>
-
-                <div className="h-[400px]"></div>
             </div>
         </section>
     )
