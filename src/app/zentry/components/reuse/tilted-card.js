@@ -2,15 +2,17 @@
 
 import { useRef } from "react";
 import { cn } from "@/utils/cn";
+import { useMediaQuery } from "react-responsive";
 
 export default function TiltedCard({
     children,
     className = ""
 }) {
     const itemRef = useRef();
+    const isMobile = useMediaQuery({ maxWidth: 1023 });
 
     const handleMouseMove = (event) => {
-        if (!itemRef.current) return;
+        if (!itemRef.current || isMobile) return;
 
         const { left, top, width, height } = itemRef.current.getBoundingClientRect();
         const relativeX = (event.clientX - left) / width;
@@ -23,7 +25,7 @@ export default function TiltedCard({
     };
 
     const handleMouseLeave = () => {
-        if (!itemRef.current) return;
+        if (!itemRef.current || isMobile) return;
         itemRef.current.style.transform = "perspective(700px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)";
     };
 
