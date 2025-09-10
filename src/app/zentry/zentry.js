@@ -16,7 +16,7 @@ export default function Zentry() {
         <main className="relative">
             <Hero />
             <About />
-            <Features />
+            {/* <Features /> */}
             <Story />
 
             <div className="h-[2000px]" />
