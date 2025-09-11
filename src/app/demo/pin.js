@@ -35,8 +35,8 @@ export default function Pin() {
                 className='w-full h-screen bg-blue-400'
             ></section>
 
-            <section className='w-full h-[400px] bg-red-400'></section>
-            <section className='w-full h-[400px] bg-green-400'></section>
+            <section className='py-[100px] w-full h-[400px] bg-red-400'></section>
+            <section className='py-[100px] w-full h-[400px] bg-green-400'></section>
         </main>
     )
 }
