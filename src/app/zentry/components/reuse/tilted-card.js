@@ -1,8 +1,6 @@
 "use client"
 
 import { useRef } from "react";
-import { useMediaQuery } from "react-responsive";
-
 import { cn } from "@/utils/cn";
 
 export default function TiltedCard({
@@ -11,7 +9,6 @@ export default function TiltedCard({
     tilt = 5
 }) {
     const tiltedCardRef = useRef();
-    const isMobile = useMediaQuery({ maxWidth: 1023 });
 
     const handleMouseMove = (event) => {
         if (!tiltedCardRef.current) return;
@@ -35,21 +32,15 @@ export default function TiltedCard({
         <div
             ref={tiltedCardRef}
             className={cn(
-                "h-[400px] cursor-pointer",
-                "sm:h-[500px]",
+                "cursor-pointer",
                 className
             )}
-            {
-                ...(!isMobile && {
-                    onMouseMove: handleMouseMove,
-                    onMouseLeave: handleMouseLeave,
-                    style: {
-                        transform:
-                            "perspective(700px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)",
-                        transition: "transform 0.3s ease-out",
-                    },
-                })
-            }
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            style={{
+                transform: "perspective(700px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)",
+                transition: "transform 0.3s ease-out",
+            }}
         >
             {children}
         </div>

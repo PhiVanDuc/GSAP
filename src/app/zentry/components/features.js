@@ -1,7 +1,6 @@
 "use client"
 
 import { useRef, useState } from "react";
-import { useMediaQuery } from "react-responsive";
 
 import TiltedCard from "./reuse/tilted-card";
 import { TiLocationArrow } from "react-icons/ti";
@@ -16,7 +15,6 @@ function CardTemplate({
     isComingSoon
 }) {
     const hoverButtonRef = useRef(null);
-    const isMobile = useMediaQuery({ maxWidth: 1023 });
 
     const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
     const [hoverOpacity, setHoverOpacity] = useState(0);
@@ -66,26 +64,18 @@ function CardTemplate({
                         <div
                             ref={hoverButtonRef}
                             className="border-hsla relative flex w-fit cursor-pointer items-center gap-1 overflow-hidden rounded-full bg-black px-5 py-2 text-xs uppercase text-white/20"
-                            {
-                                ...(!isMobile && {
-                                    onMouseMove: handleMouseMove,
-                                    onMouseEnter: handleMouseEnter,
-                                    onMouseLeave: handleMouseLeave
-                                })
-                            }
+                            onMouseMove={handleMouseMove}
+                            onMouseEnter={handleMouseEnter}
+                            onMouseLeave={handleMouseLeave}
                         >
                             <div
                                 className="pointer-events-none absolute -inset-px opacity-0 transition duration-300"
-                                {
-                                    ...(!isMobile && {
-                                        onMouseMove: handleMouseMove,
-                                        onMouseLeave: handleMouseLeave,
-                                        style: {
-                                            opacity: hoverOpacity,
-                                            background: `radial-gradient(100px circle at ${cursorPosition.x}px ${cursorPosition.y}px, #656fe288, #00000026)`,
-                                        }
-                                    })
-                                }
+                                onMouseMove={handleMouseMove}
+                                onMouseLeave={handleMouseLeave}
+                                style={{
+                                    opacity: hoverOpacity,
+                                    background: `radial-gradient(100px circle at ${cursorPosition.x}px ${cursorPosition.y}px, #656fe288, #00000026)`,
+                                }}
                             />
                             <TiLocationArrow className="relative z-20" />
                             <p className="relative z-20">coming soon</p>
@@ -100,7 +90,10 @@ function CardTemplate({
 // Component chính
 export default function Features() {
     return (
-        <section className="section-padding pb-[120px]">
+        <section
+            id="features"
+            className="section-padding pb-[120px]"
+        >
             <div className="py-[120px]">
                 <p className="font-circular-web text-lg text-blue-50">
                     Into the Metagame Layer
@@ -114,7 +107,12 @@ export default function Features() {
             </div>
 
             <div className="space-y-[20px]">
-                <TiltedCard>
+                <TiltedCard
+                    className={cn(
+                        "h-[400px]",
+                        "sm:h-[500px]"
+                    )}
+                >
                     <CardTemplate
                         src="/zentry/videos/feature-1.mp4"
                         title={
@@ -144,7 +142,12 @@ export default function Features() {
                         />
                     </TiltedCard>
 
-                    <TiltedCard>
+                    <TiltedCard
+                        className={cn(
+                            "h-[400px]",
+                            "sm:h-[500px]"
+                        )}
+                    >
                         <CardTemplate
                             src="/zentry/videos/feature-3.mp4"
                             title={
@@ -157,7 +160,12 @@ export default function Features() {
                         />
                     </TiltedCard>
 
-                    <TiltedCard>
+                    <TiltedCard
+                        className={cn(
+                            "h-[400px]",
+                            "sm:h-[500px]"
+                        )}
+                    >
                         <CardTemplate
                             src="/zentry/videos/feature-4.mp4"
                             title={
@@ -170,7 +178,12 @@ export default function Features() {
                         />
                     </TiltedCard>
 
-                    <TiltedCard>
+                    <TiltedCard
+                        className={cn(
+                            "h-[400px]",
+                            "sm:h-[500px]"
+                        )}
+                    >
                         <div className={cn(
                             "flex size-full flex-col justify-between bg-violet-300 p-5 h-[400px] rounded-[15px]",
                             "sm:h-[500px]"
@@ -183,7 +196,12 @@ export default function Features() {
                         </div>
                     </TiltedCard>
 
-                    <TiltedCard>
+                    <TiltedCard
+                        className={cn(
+                            "h-[400px]",
+                            "sm:h-[500px]"
+                        )}
+                    >
                         <video
                             src="/zentry/videos/feature-5.mp4"
                             loop

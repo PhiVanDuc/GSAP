@@ -14,7 +14,6 @@ import { cn } from "@/utils/cn";
 import oklchToHex from "@/utils/oklch-to-hex";
 
 export default function Story() {
-    const storyRef = useRef();
     const storyImageRef = useRef();
     const storyButtonRef = useRef();
 
@@ -39,7 +38,15 @@ export default function Story() {
         if (!img) return;
 
         let timeout;
-        
+
+        const handleApplyPath = () => {
+            const path = calcPathStoryImage();
+            img.style.clipPath = `path("${path}")`;
+            img.style.webkitClipPath = `path("${path}")`;
+        }
+
+        handleApplyPath();
+
         const handleResize = () => {
             if (timeout) {
                 clearTimeout(timeout);
@@ -47,13 +54,10 @@ export default function Story() {
             }
 
             timeout = setTimeout(() => {
-                const path = calcPathStoryImage();
-                img.style.clipPath = `path("${path}")`;
-                img.style.webkitClipPath = `path("${path}")`;
-            }, 300);
-        };
-
-        handleResize();
+                handleApplyPath();
+            }, 500);
+        }
+        
         window.addEventListener("resize", handleResize);
 
         return () => {
@@ -63,7 +67,7 @@ export default function Story() {
             }
 
             window.removeEventListener("resize", handleResize);
-        };
+        }
     }, []);
 
     useGSAP(() => {
@@ -84,7 +88,7 @@ export default function Story() {
 
         gsap.timeline({
             scrollTrigger: {
-                trigger: storyRef.current,
+                trigger: "#story",
                 start: "bottom bottom",
                 end: "bottom bottom",
                 scrub: true,
@@ -95,6 +99,10 @@ export default function Story() {
         })
         .to(
             ".story-header",
+            { color: oklchToHex("oklch(21% 0.006 285.885)") }
+        )
+        .to(
+            ".story-desc",
             { color: oklchToHex("oklch(21% 0.006 285.885)") }
         )
         .to(
@@ -114,32 +122,36 @@ export default function Story() {
 
     return (
         <section
-            ref={storyRef}
+            id="story"
             className={cn(
                 "pb-[120px] pt-[60px] overflow-hidden",
                 "md:pt-[120px]"
             )}
         >
-            <div className="mb-[20px]">
-                <AnimatedDesc
-                    desc="the multiversal ip world"
-                    triggerQuery=".story-header"
-                    className="story-header text-blue-50 text-center uppercase"
-                />
-            </div>
+            <AnimatedDesc
+                desc="the multiversal ip world"
+                triggerQuery=".story-desc"
+                className="story-desc text-blue-50 text-center uppercase mb-[20px]"
+            />
 
             <div className="section-padding">
                 <AnimatedHeading
                     heading={["the story of", "a hidden realm"]}
                     triggerQuery=".story-header"
                     delay={0.3}
-                    className="relative story-header text-blue-50 text-center uppercase md:mix-blend-difference pointer-events-none z-10"
+                    className={cn(
+                        "story-header relative text-blue-50 text-center uppercase pointer-events-none z-10",
+                        "md:mix-blend-difference"
+                    )}
                 />
 
                 <div className="flex justify-center">
                     <TiltedCard
-                        className="h-auto"
                         tilt={10}
+                        className={cn(
+                            "mt-[40px]",
+                            "md:translate-y-[-50px] md:mt-0 xl:translate-y-[-60px]"
+                        )}
                     >
                         <Image
                             ref={storyImageRef}
@@ -147,19 +159,7 @@ export default function Story() {
                             alt="Story Image"
                             width={2000}
                             height={2000}
-                            className={cn(
-                                "w-full max-w-[1000px] object-cover object-center mt-[40px]",
-                                "md:translate-y-[-40px] md:mt-0 xl:translate-y-[-60px]"
-                            )}
-                            onLoad={() => {
-                                const img = storyImageRef.current;
-                                
-                                if (img) {
-                                    const path = calcPathStoryImage();
-                                    img.style.clipPath = `path("${path}")`;
-                                    img.style.webkitClipPath = `path("${path}")`;
-                                }
-                            }}
+                            className="w-[1000px] aspect-video object-cover object-center"
                         />
                     </TiltedCard>
                 </div>
@@ -167,17 +167,17 @@ export default function Story() {
 
             <div className={cn(
                 "flex justify-center mt-[40px]",
-                "lg:justify-end lg:mt-[120px] lg:mr-44"
+                "md:mt-[60px] xl:justify-end xl:mr-44"
             )}>
                 <div className={cn(
                     "flex flex-col items-center gap-[20px]",
-                    "lg:items-start"
+                    "xl:items-start"
                 )}>
                     <p
                         id="story-content"
                         className={cn(
                             "max-w-sm text-center font-circular-web text-violet-50 opacity-0 translate-x-[-20px] translate-y-[20px]",
-                            "lg:text-start"
+                            "xl:text-start"
                         )}
                     >
                         Where realms converge, lies Zentry and the boundless pillar.
