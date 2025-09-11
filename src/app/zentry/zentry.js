@@ -11,11 +11,10 @@ import gsap from "gsap";
 import SplitText from "gsap/SplitText";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
+gsap.registerPlugin(ScrollTrigger, SplitText);
+
 export default function Zentry() {
-    useEffect(() => {
-        gsap.registerPlugin(ScrollTrigger, SplitText);
-        ScrollTrigger.normalizeScroll(true);
-    }, [])
+    useEffect(() => { ScrollTrigger.normalizeScroll(true) }, []);
 
     return (
         <main className="relative">
