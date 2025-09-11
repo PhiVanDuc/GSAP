@@ -101,7 +101,7 @@ function CardTemplate({
 export default function Features() {
     return (
         <section className="section-padding bg-black pb-[120px]">
-            <div className="py-[120px]">
+            <div className="my-[120px]">
                 <p className="font-circular-web text-lg text-blue-50">
                     Into the Metagame Layer
                 </p>
