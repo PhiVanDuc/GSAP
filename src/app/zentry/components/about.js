@@ -109,7 +109,7 @@ export default function About() {
     return (
         <section className="about overflow-hidden">
             <header
-                className="about-header space-y-[40px] pt-[120px] mb-[20px] text-center uppercase"
+                className="about-header space-y-[30px] mt-[120px] mb-[20px] text-center uppercase"
                 style={{ perspective: "1000px" }}
             >
                 <AnimatedDesc

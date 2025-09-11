@@ -12,24 +12,18 @@ export default function Story() {
     const storyRef = useRef();
     const storyImageRef = useRef();
 
-    const getSkewByBreakpoint = () => {
-        const width = window.innerWidth;
-        if (width >= 1280) return 100;
-        if (width >= 1024) return 80;
-        if (width >= 768) return 60;
-        if (width >= 640) return 40;
-        return 30;
-    };
-
     const calcPathStoryImage = () => {
         const img = storyImageRef.current;
         const width = img.getBoundingClientRect().width;
         const height = img.getBoundingClientRect().height;
 
         const r = 15;
-        const skew = getSkewByBreakpoint();
+        const skew = width >= 1280 ? 100 :
+            width >= 1024 ? 80 :
+            width >= 768 ? 60 :
+            width >= 640 ? 40 : 30;
 
-        return `M ${0} ${r} A ${r} ${r} 0 0 1 ${r} ${0} L ${width - r} ${skew} A ${r} ${r} 0 0 1 ${width} ${skew + r} L ${width} ${height - skew - r} A ${r} ${r} 0 0 1 ${width - r} ${height - skew} L ${r} ${height} A ${r} ${r} 0 0 1 ${0} ${height - r} L ${0} ${r} Z`
+        return `M ${0} ${r} A ${r} ${r} 0 0 1 ${r} ${0} L ${width - r} ${skew} A ${r} ${r} 0 0 1 ${width} ${skew + r} L ${width} ${height - skew - r} A ${r} ${r} 0 0 1 ${width - r} ${height - skew} L ${r} ${height} A ${r} ${r} 0 0 1 ${0} ${height - r} L ${0} ${r} Z`;
     }
 
     useEffect(() => {
@@ -59,6 +53,7 @@ export default function Story() {
                 clearTimeout(timeout);
                 timeout = undefined;
             }
+
             window.removeEventListener("resize", handleResize);
         };
     }, []);
@@ -93,7 +88,7 @@ export default function Story() {
                         height={2000}
                         className={cn(
                             "w-full max-w-[1000px] object-cover object-center mt-[40px]",
-                            "md:translate-y-[-50px] md:mt-0 xl:translate-y-[-75px]"
+                            "md:translate-y-[-40px] md:mt-0 xl:translate-y-[-60px]"
                         )}
                     />
                 </div>
