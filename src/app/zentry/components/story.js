@@ -11,11 +11,11 @@ import AnimatedHeading from "./reuse/animated-heading";
 
 import gsap from "gsap";
 import { cn } from "@/utils/cn";
+import oklchToHex from "@/utils/oklch-to-hex";
 
 export default function Story() {
     const storyRef = useRef();
     const storyImageRef = useRef();
-    const storyDescRef = useRef();
     const storyButtonRef = useRef();
 
     const calcPathStoryImage = () => {
@@ -68,10 +68,10 @@ export default function Story() {
 
     useGSAP(() => {
         gsap.to(
-            storyDescRef.current,
+            "#story-content",
             {
                 scrollTrigger: {
-                    trigger: storyDescRef.current,
+                    trigger: "#story-content",
                     start: "top bottom",
                     toggleActions: "restart none none reset",
                 },
@@ -81,12 +81,44 @@ export default function Story() {
                 duration: 1
             }
         );
+
+        gsap.timeline({
+            scrollTrigger: {
+                trigger: storyRef.current,
+                start: "bottom bottom",
+                end: "bottom bottom",
+                scrub: true,
+                toggleAttribute: "restart none none reset",
+            },
+            onComplete: () => { document.body.style.backgroundColor = "#DFDFF0" },
+            onReverseComplete: () => { document.body.style.backgroundColor = "black" },
+        })
+        .to(
+            ".story-header",
+            { color: oklchToHex("oklch(21% 0.006 285.885)") }
+        )
+        .to(
+            "#story-content",
+            { color: oklchToHex("oklch(21% 0.006 285.885)") },
+            "<"
+        )
+        .to(
+            storyButtonRef.current,
+            {
+                color: "#DFDFF0",
+                backgroundColor: oklchToHex("oklch(21% 0.006 285.885)")
+            },
+            "<"
+        )
     }, []);
 
     return (
         <section
             ref={storyRef}
-            className="story py-[120px] overflow-hidden"
+            className={cn(
+                "pb-[120px] pt-[60px] overflow-hidden",
+                "md:pt-[120px]"
+            )}
         >
             <div className="mb-[20px]">
                 <AnimatedDesc
@@ -101,7 +133,7 @@ export default function Story() {
                     heading={["the story of", "a hidden realm"]}
                     triggerQuery=".story-header"
                     delay={0.3}
-                    className="relative story-header text-blue-50 text-center uppercase mix-blend-difference pointer-events-none z-10"
+                    className="relative story-header text-blue-50 text-center uppercase md:mix-blend-difference pointer-events-none z-10"
                 />
 
                 <div className="flex justify-center">
@@ -142,7 +174,7 @@ export default function Story() {
                     "lg:items-start"
                 )}>
                     <p
-                        ref={storyDescRef}
+                        id="story-content"
                         className={cn(
                             "max-w-sm text-center font-circular-web text-violet-50 opacity-0 translate-x-[-20px] translate-y-[20px]",
                             "lg:text-start"

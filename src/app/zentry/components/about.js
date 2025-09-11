@@ -68,7 +68,7 @@ export default function About() {
                         end: `bottom top`,
                         scrub: true,
                         pin: true,
-                        onEnterBack: () => { document.body.style.backgroundColor = "" }
+                        onEnterBack: () => { document.body.style.backgroundColor = "#DFDFF0" }
                     },
                     onComplete: () => { document.body.style.backgroundColor = "black" }
                 }

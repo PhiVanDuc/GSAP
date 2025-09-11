@@ -10,8 +10,8 @@ import gsap from "gsap";
 import { cn } from "@/utils/cn";
 
 export default function Hero() {
-    const expandVideoRef = useRef();
-    const backgroundVideoRef = useRef();
+    const heroExpandVideoRef = useRef();
+    const heroBackgroundVideoRef = useRef();
     const cooldownRef = useRef(false);
 
     const [isClicked, setIsClicked] = useState(false);
@@ -40,34 +40,34 @@ export default function Hero() {
         () => {
             if (isClicked) {
                 gsap.set(
-                    ".expand-video",
+                    "#hero-expand-video",
                     { visibility: "visible" }
                 );
 
                 gsap.timeline({
                     onComplete: () => {
-                        backgroundVideoRef.current.src = getLinkVideo(currentVideoIndex);
+                        heroBackgroundVideoRef.current.src = getLinkVideo(currentVideoIndex);
 
-                        backgroundVideoRef.current.addEventListener("loadedmetadata", function syncTime() {
-                            backgroundVideoRef.current.currentTime = expandVideoRef.current.currentTime;
-                            backgroundVideoRef.current.play();
-                            backgroundVideoRef.current.removeEventListener("loadedmetadata", syncTime);
+                        heroBackgroundVideoRef.current.addEventListener("loadedmetadata", function syncTime() {
+                            heroBackgroundVideoRef.current.currentTime = heroExpandVideoRef.current.currentTime;
+                            heroBackgroundVideoRef.current.play();
+                            heroBackgroundVideoRef.current.removeEventListener("loadedmetadata", syncTime);
                         });
                     }
                 })
                     .to(
-                        ".expand-video",
+                        "#hero-expand-video",
                         {
                             width: "100%",
                             height: "100%",
                             transformOrigin: "center center",
                             duration: 1,
                             ease: "power1.inOut",
-                            onStart: () => { expandVideoRef.current.play(); }
+                            onStart: () => { heroExpandVideoRef.current.play(); }
                         }
                     )
                     .set(
-                        ".expand-video",
+                        "#hero-expand-video",
                         {
                             border: "none",
                             borderRadius: "0px",
@@ -78,7 +78,7 @@ export default function Hero() {
 
                 if (!isMobileScreen) {
                     gsap.from(
-                        ".preview-video",
+                        "#hero-preview-video",
                         {
                             transformOrigin: "center center",
                             scale: 0,
@@ -98,10 +98,10 @@ export default function Hero() {
 
     useGSAP(() => {
         gsap.to(
-            ".hero-video-box",
+            "#hero-video-box",
             {
                 scrollTrigger: {
-                    trigger: ".hero-video-box",
+                    trigger: "#hero-video-box",
                     start: "top top",
                     end: "bottom 15%",
                     scrub: 1
@@ -122,7 +122,7 @@ export default function Hero() {
 
         setIsClicked(true);
         setCurrentVideoIndex((prev) => (prev % totalVideos) + 1);
-        setTimeout(() => { cooldownRef.current = false }, 1500);
+        setTimeout(() => { cooldownRef.current = false }, 1000);
     }
 
     const handleVideoLoading = () => {
@@ -133,51 +133,59 @@ export default function Hero() {
         <section className="relative h-dvh overflow-hidden">
             <Loading isLoading={isLoadVideo && (loadedVideoCount < totalVideosNeedLoad)} />
 
-            <div className="group absolute-center preview-size z-20">
+            <div className="group absolute-center hero-preview-size z-20">
                 <div className={cn(
-                    "preview-video-wrapper size-full origin-center transition-all duration-500 ease-out",
+                    "size-full origin-center transition-all duration-500 ease-out",
                     "md:scale-0 md:group-hover:scale-100 md:opacity-0 md:group-hover:opacity-100"
                 )}>
                     <div
-                        className="preview-video size-full border border-zinc-800 bg-zinc-500 rounded-[15px] cursor-pointer overflow-hidden"
+                        id="hero-preview-video"
+                        className="size-full border border-zinc-800 bg-zinc-500 rounded-[15px] cursor-pointer overflow-hidden"
                         onClick={handleClickPreviewVideo}
                     >
                         <video
                             preload="auto"
                             src={getLinkVideo((currentVideoIndex % totalVideos) + 1)}
-                            className="hero-video size-full object-cover object-center scale-150"
+                            className="size-full object-cover object-center scale-150"
                             onLoadedData={handleVideoLoading}
                         />
                     </div>
                 </div>
             </div>
             
-            <div className="hero-video-box relative w-full h-full border border-neutral-800 overflow-hidden">
+            <div
+                id="hero-video-box"
+                className="relative w-full h-full border border-neutral-800 overflow-hidden"
+                style={{
+                    clipPath: "polygon(0 0%, 100% 0, 100% 100%, 0 100%)"
+                }}
+            >
                 <video
-                    ref={expandVideoRef}
+                    ref={heroExpandVideoRef}
                     muted
                     loop
                     playsInline
                     preload="auto"
                     src={getLinkVideo(currentVideoIndex)}
-                    className="expand-video absolute-center preview-size border border-zinc-800 bg-zinc-500 rounded-[15px] invisible object-cover object-center z-10"
+                    id="hero-expand-video"
+                    className="absolute-center hero-preview-size border border-zinc-800 bg-zinc-500 rounded-[15px] invisible object-cover object-center z-10"
                     onLoadedData={handleVideoLoading}
                 />
 
                 <video
-                    ref={backgroundVideoRef}
+                    ref={heroBackgroundVideoRef}
                     muted
                     autoPlay
                     loop
                     playsInline
                     preload="auto"
                     src={getLinkVideo(1)}
-                    className="hero-video absolute top-0 left-0 size-full object-cover object-center z-0"
+                    className="absolute top-0 left-0 size-full object-cover object-center z-0"
                     onLoadedData={handleVideoLoading}
                 />
 
                 <header className={cn(
-                    "hero-content flex flex-col items-center absolute top-[100px] bottom-[40px] left-[20px] right-[20px] z-10",
+                    "flex flex-col items-center absolute top-[100px] bottom-[40px] left-[20px] right-[20px] z-10",
                     "sm:items-start sm:bottom-auto sm:left-[40px] sm:right-0"
                 )}>
                     <h1 className={cn(
@@ -206,7 +214,7 @@ export default function Hero() {
                 </header>
 
                 <h2 className={cn(
-                    "hero-mask-header hidden hero-header absolute bottom-[20px] right-[50px] text-blue-50 z-10",
+                    "hero-header hidden absolute bottom-[20px] right-[50px] text-blue-50 z-10",
                     "sm:block"
                 )}>
                     G<b className="special-zentry-font">A</b>MING
@@ -214,7 +222,7 @@ export default function Hero() {
             </div>
 
             <h2 className={cn(
-                "hero-mask-header hidden hero-header absolute bottom-[20px] right-[50px] text-zinc-800 -z-10",
+                "hero-header hidden absolute bottom-[20px] right-[50px] text-zinc-800 -z-10",
                 "sm:block"
             )}>
                 G<b className="special-zentry-font">A</b>MING

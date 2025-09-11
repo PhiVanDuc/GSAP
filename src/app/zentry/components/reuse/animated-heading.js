@@ -63,7 +63,7 @@ export default function AnimatedHeading({
         <h2
             ref={headingRef}
             className={cn(
-                "title text-[50px] font-zentry leading-none origin-center rotate-x-[-40deg] rotate-y-[-70deg] rotate-z-[-45deg]",
+                "text-[50px] font-zentry leading-none origin-center rotate-x-[-40deg] rotate-y-[-70deg] rotate-z-[-45deg]",
                 "sm:text-[65px]",
                 "lg:text-[90px]",
                 className

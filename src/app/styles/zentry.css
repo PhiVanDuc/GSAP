@@ -55,53 +55,39 @@ body {
   @apply text-zinc-900;
 }
 
-@utility special-zentry-font {
+.special-zentry-font {
   font-family: var(--font-zentry);
   font-feature-settings: "ss01" on;
 }
 
-@utility absolute-center {
+.absolute-center {
   @apply absolute top-1/2 left-1/2 -translate-1/2;
 }
 
-@utility preview-size {
-  @apply w-[120px] sm:w-[150px] lg:w-[200px] min-[2400px]:w-[250px] aspect-square;
+.section-padding {
+  @apply px-[20px] sm:px-[40px] md:px-[60px] lg:px-[80px] xl:px-[100px];
 }
 
-@utility hero-header {
+.hero-header {
   @apply font-zentry text-[80px] sm:text-[120px] lg:text-[205px] font-bold leading-none lg:tracking-[-2px];
 }
 
-@layer components {
-  .section-padding {
-    @apply px-[20px] sm:px-[40px] md:px-[60px] lg:px-[80px] xl:px-[100px];
-  }
+.hero-preview-size {
+  @apply w-[120px] sm:w-[150px] lg:w-[200px] min-[2400px]:w-[250px] aspect-square;
+}
 
-  .zentry-logo-right {
-    clip-path: polygon(0 50%, 100% 0, 50% 100%, 50% 50%);
-  }
+.zentry-navbar-down {
+  transform: translateY(-100%);
+  opacity: 0;
+  background-color: oklch(21% 0.006 285.885 / 0);
+}
 
-  .zentry-logo-left {
-    clip-path: polygon(50% 0, 50% 50%, 100% 50%, 0 100%);
-  }
+.zentry-navbar-on {
+  transform: translateY(0%);
+  opacity: 1;
+  background-color: oklch(21% 0.006 285.885 / 1);
+}
 
-  .hero-video-box {
-    clip-path: polygon(0 0%, 100% 0, 100% 100%, 0 100%);
-  }
-
-  .zentry-navbar-down {
-    transform: translateY(-100%);
-    opacity: 0;
-    background-color: oklch(21% 0.006 285.885 / 0);
-  }
-
-  .zentry-navbar-on {
-    transform: translateY(0%);
-    opacity: 1;
-    background-color: oklch(21% 0.006 285.885 / 1);
-  }
-
-  .feature-card-title {
-    @apply md:text-6xl text-4xl font-black font-zentry uppercase
-  }
+.feature-card-title {
+  @apply md:text-6xl text-4xl font-black font-zentry uppercase
 }

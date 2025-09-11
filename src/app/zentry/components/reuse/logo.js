@@ -18,7 +18,10 @@ export default function Logo({
                     "zentry-logo-right aspect-square bg-blue-50",
                     translateTop
                 )}
-                style={{ width: `${size}px` }}
+                style={{
+                    width: `${size}px`,
+                    clipPath: "polygon(0 50%, 100% 0, 50% 100%, 50% 50%)"
+                }}
             />
 
             <div
@@ -26,7 +29,10 @@ export default function Logo({
                     "zentry-logo-left aspect-square bg-blue-50",
                     translateDown
                 )}
-                style={{ width: `${size}px` }}
+                style={{
+                    width: `${size}px`,
+                    clipPath: "polygon(50% 0, 50% 50%, 100% 50%, 0 100%)"
+                }}
             />
         </div>
     )

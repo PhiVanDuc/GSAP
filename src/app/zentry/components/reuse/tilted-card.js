@@ -10,30 +10,30 @@ export default function TiltedCard({
     className = "",
     tilt = 5
 }) {
-    const itemRef = useRef();
+    const tiltedCardRef = useRef();
     const isMobile = useMediaQuery({ maxWidth: 1023 });
 
     const handleMouseMove = (event) => {
-        if (!itemRef.current) return;
+        if (!tiltedCardRef.current) return;
 
-        const { left, top, width, height } = itemRef.current.getBoundingClientRect();
+        const { left, top, width, height } = tiltedCardRef.current.getBoundingClientRect();
         const relativeX = (event.clientX - left) / width;
         const relativeY = (event.clientY - top) / height;
 
         const tiltX = (relativeY - 0.5) * tilt;
         const tiltY = (relativeX - 0.5) * -tilt;
 
-        itemRef.current.style.transform = `perspective(700px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(.96,.96,.96)`;
+        tiltedCardRef.current.style.transform = `perspective(700px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(.96,.96,.96)`;
     };
 
     const handleMouseLeave = () => {
-        if (!itemRef.current) return;
-        itemRef.current.style.transform = "perspective(700px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)";
+        if (!tiltedCardRef.current) return;
+        tiltedCardRef.current.style.transform = "perspective(700px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)";
     };
 
     return (
         <div
-            ref={itemRef}
+            ref={tiltedCardRef}
             className={cn(
                 "h-[400px] cursor-pointer",
                 "sm:h-[500px]",
