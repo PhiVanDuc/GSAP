@@ -4,7 +4,6 @@ import { useEffect } from "react";
 
 import Hero from "./components/hero";
 import About from "./components/about";
-// import AboutDemo from "./components/about-demo";
 import Features from "./components/features";
 import Story from "./components/story";
 
@@ -21,7 +20,6 @@ export default function Zentry() {
         <main className="relative">
             <Hero />
             <About />
-            {/* <AboutDemo /> */}
             <Features />
             <Story />
 

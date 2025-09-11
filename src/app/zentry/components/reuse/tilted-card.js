@@ -7,7 +7,8 @@ import { cn } from "@/utils/cn";
 
 export default function TiltedCard({
     children,
-    className = ""
+    className = "",
+    tilt = 5
 }) {
     const itemRef = useRef();
     const isMobile = useMediaQuery({ maxWidth: 1023 });
@@ -19,8 +20,8 @@ export default function TiltedCard({
         const relativeX = (event.clientX - left) / width;
         const relativeY = (event.clientY - top) / height;
 
-        const tiltX = (relativeY - 0.5) * 5;
-        const tiltY = (relativeX - 0.5) * -5;
+        const tiltX = (relativeY - 0.5) * tilt;
+        const tiltY = (relativeX - 0.5) * -tilt;
 
         itemRef.current.style.transform = `perspective(700px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(.96,.96,.96)`;
     };

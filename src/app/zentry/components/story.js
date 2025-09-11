@@ -1,16 +1,21 @@
 "use client"
 
 import { useEffect, useRef } from "react";
+import { useGSAP } from "@gsap/react";
 
 import Image from "next/image";
+import Button from "./reuse/button";
+import TiltedCard from "./reuse/tilted-card";
 import AnimatedDesc from "./reuse/animated-desc";
 import AnimatedHeading from "./reuse/animated-heading";
 
 import { cn } from "@/utils/cn";
+import gsap from "gsap";
 
 export default function Story() {
     const storyRef = useRef();
     const storyImageRef = useRef();
+    const storyDesc = useRef();
 
     const calcPathStoryImage = () => {
         const img = storyImageRef.current;
@@ -19,7 +24,7 @@ export default function Story() {
 
         const r = 15;
         const skew =
-            width >= 1280 ? 100 :
+            width >= 1280 ? 120 :
             width >= 1024 ? 80 :
             width >= 768 ? 60 :
             width >= 640 ? 40 :
@@ -60,6 +65,23 @@ export default function Story() {
         };
     }, []);
 
+    useGSAP(() => {
+        gsap.to(
+            storyDesc.current,
+            {
+                scrollTrigger: {
+                    trigger: storyDesc.current,
+                    start: "80% bottom",
+                    toggleActions: "restart none none reset",
+                },
+                opacity: 1,
+                x: 0,
+                y: 0,
+                duration: 0.8
+            }
+        )
+    }, []);
+
     return (
         <section
             ref={storyRef}
@@ -82,16 +104,57 @@ export default function Story() {
                 />
 
                 <div className="flex justify-center">
-                    <Image
-                        ref={storyImageRef}
-                        src='/zentry/img/entrance.webp'
-                        alt="Story Image"
-                        width={2000}
-                        height={2000}
+                    <TiltedCard
+                        className="h-auto"
+                        tilt={10}
+                    >
+                        <Image
+                            ref={storyImageRef}
+                            src='/zentry/img/entrance.webp'
+                            alt="Story Image"
+                            width={2000}
+                            height={2000}
+                            className={cn(
+                                "w-full max-w-[1000px] object-cover object-center mt-[40px]",
+                                "md:translate-y-[-40px] md:mt-0 xl:translate-y-[-60px]"
+                            )}
+                            onLoad={() => {
+                                const img = storyImageRef.current;
+                                
+                                if (img) {
+                                    const path = calcPathStoryImage();
+                                    img.style.clipPath = `path("${path}")`;
+                                    img.style.webkitClipPath = `path("${path}")`;
+                                }
+                            }}
+                        />
+                    </TiltedCard>
+                </div>
+            </div>
+
+            <div className={cn(
+                "flex justify-center mt-[40px]",
+                "lg:justify-end lg:mt-[120px] lg:mr-44"
+            )}>
+                <div className={cn(
+                    "flex flex-col items-center gap-[20px]",
+                    "lg:items-start"
+                )}>
+                    <p
+                        ref={storyDesc}
                         className={cn(
-                            "w-full max-w-[1000px] object-cover object-center mt-[40px]",
-                            "md:translate-y-[-40px] md:mt-0 xl:translate-y-[-60px]"
+                            "max-w-sm text-center font-circular-web text-violet-50 opacity-0 translate-x-[-20px] translate-y-[20px]",
+                            "lg:text-start"
                         )}
+                    >
+                        Where realms converge, lies Zentry and the boundless pillar.
+                        Discover its secrets and shape your fate amidst infinite
+                        opportunities.
+                    </p>
+
+                    <Button
+                        label="discover prologue"
+                        className="w-fit py-[18px] font-medium uppercase bg-blue-50"
                     />
                 </div>
             </div>
