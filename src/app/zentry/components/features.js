@@ -100,7 +100,7 @@ function CardTemplate({
 // Component chính
 export default function Features() {
     return (
-        <section className="section-padding bg-black pb-[120px]">
+        <section className="section-padding pb-[120px]">
             <div className="py-[120px]">
                 <p className="font-circular-web text-lg text-blue-50">
                     Into the Metagame Layer

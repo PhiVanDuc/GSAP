@@ -9,13 +9,14 @@ import TiltedCard from "./reuse/tilted-card";
 import AnimatedDesc from "./reuse/animated-desc";
 import AnimatedHeading from "./reuse/animated-heading";
 
-import { cn } from "@/utils/cn";
 import gsap from "gsap";
+import { cn } from "@/utils/cn";
 
 export default function Story() {
     const storyRef = useRef();
     const storyImageRef = useRef();
-    const storyDesc = useRef();
+    const storyDescRef = useRef();
+    const storyButtonRef = useRef();
 
     const calcPathStoryImage = () => {
         const img = storyImageRef.current;
@@ -67,25 +68,25 @@ export default function Story() {
 
     useGSAP(() => {
         gsap.to(
-            storyDesc.current,
+            storyDescRef.current,
             {
                 scrollTrigger: {
-                    trigger: storyDesc.current,
-                    start: "80% bottom",
+                    trigger: storyDescRef.current,
+                    start: "top bottom",
                     toggleActions: "restart none none reset",
                 },
                 opacity: 1,
                 x: 0,
                 y: 0,
-                duration: 0.8
+                duration: 1
             }
-        )
+        );
     }, []);
 
     return (
         <section
             ref={storyRef}
-            className="story py-[120px] bg-black overflow-hidden"
+            className="story py-[120px] overflow-hidden"
         >
             <div className="mb-[20px]">
                 <AnimatedDesc
@@ -141,7 +142,7 @@ export default function Story() {
                     "lg:items-start"
                 )}>
                     <p
-                        ref={storyDesc}
+                        ref={storyDescRef}
                         className={cn(
                             "max-w-sm text-center font-circular-web text-violet-50 opacity-0 translate-x-[-20px] translate-y-[20px]",
                             "lg:text-start"
@@ -153,6 +154,7 @@ export default function Story() {
                     </p>
 
                     <Button
+                        ref={storyButtonRef}
                         label="discover prologue"
                         className="w-fit py-[18px] font-medium uppercase bg-blue-50"
                     />
