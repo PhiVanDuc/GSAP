@@ -7,7 +7,6 @@ import AnimatedHeading from "./reuse/animated-heading";
 
 import gsap from "gsap";
 import { cn } from "@/utils/cn";
-import ScrollTrigger from "gsap/ScrollTrigger";
 
 export default function About() {
     const aboutImageRef = useRef();
@@ -52,7 +51,7 @@ export default function About() {
             const height = aboutContentRef.current.getBoundingClientRect().height + 1;
             const r = 10;
 
-            const startPath = calcClipPathAboutImage(aboutImageRef.current);
+            const startPath = calcClipPathAboutImage();
             const endPath = `path("M ${0} ${0} A ${r} ${r} 0 0 1 ${0} ${0} L ${width} ${0} A ${r} ${r} 0 0 1 ${width} ${0} L ${width} ${height} A ${r} ${r} 0 0 1 ${width} ${height} L ${0} ${height} A ${r} ${r} 0 0 1 ${0} ${height} L ${0} ${0} Z")`;
 
             aboutImageRef.current.style.clipPath = startPath;
@@ -84,7 +83,6 @@ export default function About() {
 
             timeout = setTimeout(() => {
                 handleAnimation();
-                ScrollTrigger.refresh();
             }, 500);
         }
 
@@ -126,7 +124,7 @@ export default function About() {
 
             <div
                 ref={aboutContentRef}
-                className="about-content relative h-screen"
+                className="relative about-content h-screen"
             >
                 <Image
                     ref={aboutImageRef}
@@ -134,7 +132,7 @@ export default function About() {
                     alt="About Image"
                     width="2000"
                     height="2000"
-                    className="absolute top-0 left-0 size-full object-cover object-center scale-90 z-10"
+                    className="relative size-full object-cover object-center scale-90 z-10"
                 />
 
                 <div

@@ -3,8 +3,8 @@
 import { useEffect } from "react";
 
 import Hero from "./components/hero";
-// import About from "./components/about";
-import AboutDemo from "./components/about-demo";
+import About from "./components/about";
+// import AboutDemo from "./components/about-demo";
 import Features from "./components/features";
 import Story from "./components/story";
 
@@ -20,8 +20,8 @@ export default function Zentry() {
     return (
         <main className="relative">
             <Hero />
-            {/* <About /> */}
-            <AboutDemo />
+            <About />
+            {/* <AboutDemo /> */}
             <Features />
             <Story />
 

@@ -18,20 +18,22 @@ export default function Story() {
         const height = img.getBoundingClientRect().height;
 
         const r = 15;
-        const skew = width >= 1280 ? 100 :
+        const skew =
+            width >= 1280 ? 100 :
             width >= 1024 ? 80 :
             width >= 768 ? 60 :
-            width >= 640 ? 40 : 30;
+            width >= 640 ? 40 :
+            30;
 
         return `M ${0} ${r} A ${r} ${r} 0 0 1 ${r} ${0} L ${width - r} ${skew} A ${r} ${r} 0 0 1 ${width} ${skew + r} L ${width} ${height - skew - r} A ${r} ${r} 0 0 1 ${width - r} ${height - skew} L ${r} ${height} A ${r} ${r} 0 0 1 ${0} ${height - r} L ${0} ${r} Z`;
     }
 
     useEffect(() => {
-        let timeout;
         const img = storyImageRef.current;
-
         if (!img) return;
 
+        let timeout;
+        
         const handleResize = () => {
             if (timeout) {
                 clearTimeout(timeout);
