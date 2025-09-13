@@ -35,16 +35,17 @@ export default function About() {
         return `path("M ${x1} ${y1 + r} A ${r} ${r} 0 0 1 ${x1 + r} ${y1} L ${x2 - r} ${y1} A ${r} ${r} 0 0 1 ${x2} ${y1 + r} L ${x2} ${y2 - r} A ${r} ${r} 0 0 1 ${x2 - r} ${y2} L ${x1 + r} ${y2} A ${r} ${r} 0 0 1 ${x1} ${y2 - r} L ${x1} ${y1 + r} Z")`;
     }
 
-    useGSAP(() => {
+    useGSAP((_, contextSafe) => {
         if (!aboutImageRef.current || !aboutContentRef.current || !aboutImageDescRef.current) return;
 
-        let tween, timeout;
+        let timeout;
+        let maskClipPathTween;
 
-        const handleAnimation = () => {
-            if (tween) {
-                if (tween.scrollTrigger) tween.scrollTrigger.kill();
-                tween.kill();
-                tween = undefined;
+        const handleAnimation = contextSafe(() => {
+            if (maskClipPathTween) {
+                if (maskClipPathTween.scrollTrigger) maskClipPathTween.scrollTrigger.kill();
+                maskClipPathTween.kill();
+                maskClipPathTween = undefined;
             }
 
             const width = aboutContentRef.current.getBoundingClientRect().width;
@@ -57,7 +58,7 @@ export default function About() {
             aboutImageRef.current.style.clipPath = startPath;
             aboutImageRef.current.style.webkitClipPath = startPath;
 
-            tween = gsap.to(
+            maskClipPathTween = gsap.to(
                 aboutImageRef.current,
                 {
                     clipPath: endPath,
@@ -73,7 +74,7 @@ export default function About() {
                     onComplete: () => { document.body.style.backgroundColor = "black" }
                 }
             );
-        }
+        });
 
         handleAnimation();
 
@@ -83,20 +84,12 @@ export default function About() {
                 timeout = undefined;
             }
 
-            timeout = setTimeout(() => {
-                handleAnimation();
-            }, 500);
+            timeout = setTimeout(() => { handleAnimation() }, 500);
         }
 
         window.addEventListener("resize", handleResize);
 
         return () => {
-            if (tween) {
-                if (tween.scrollTrigger) tween.scrollTrigger.kill();
-                tween.kill();
-                tween = undefined;
-            }
-
             if (timeout) {
                 clearTimeout(timeout);
                 timeout = undefined;

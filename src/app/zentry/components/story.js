@@ -53,9 +53,7 @@ export default function Story() {
                 timeout = undefined;
             }
 
-            timeout = setTimeout(() => {
-                handleApplyPath();
-            }, 500);
+            timeout = setTimeout(() => { handleApplyPath() }, 500);
         }
         
         window.addEventListener("resize", handleResize);
@@ -70,54 +68,94 @@ export default function Story() {
         }
     }, []);
 
-    useGSAP(() => {
-        gsap.to(
-            "#story-content",
-            {
-                scrollTrigger: {
-                    trigger: "#story-content",
-                    start: "top bottom",
-                    toggleActions: "restart none none reset",
-                },
-                opacity: 1,
-                x: 0,
-                y: 0,
-                duration: 1
-            }
-        );
+    useGSAP((_, contextSafe) => {
+        let contentTween;
+        let colorsTimeline;
+        let timeout;
 
-        gsap.timeline({
-            scrollTrigger: {
-                trigger: "#story",
-                start: "bottom bottom",
-                end: "bottom bottom",
-                scrub: true,
-                toggleAttribute: "restart none none reset",
-            },
-            onComplete: () => { document.body.style.backgroundColor = "#DFDFF0" },
-            onReverseComplete: () => { document.body.style.backgroundColor = "black" },
-        })
-        .to(
-            ".story-header",
-            { color: oklchToHex("oklch(21% 0.006 285.885)") }
-        )
-        .to(
-            ".story-desc",
-            { color: oklchToHex("oklch(21% 0.006 285.885)") }
-        )
-        .to(
-            "#story-content",
-            { color: oklchToHex("oklch(21% 0.006 285.885)") },
-            "<"
-        )
-        .to(
-            storyButtonRef.current,
-            {
-                color: "#DFDFF0",
-                backgroundColor: oklchToHex("oklch(21% 0.006 285.885)")
-            },
-            "<"
-        )
+        const handleTween = contextSafe(() => {
+            if (contentTween) {
+                if (contentTween.scrollTrigger) contentTween.scrollTrigger.kill();
+                contentTween.kill();
+                contentTween = undefined;
+            }
+
+            if (colorsTimeline) {
+                if (colorsTimeline.scrollTrigger) colorsTimeline.scrollTrigger.kill();
+                colorsTimeline.kill();
+                colorsTimeline = undefined;
+            }
+
+            contentTween = gsap.to(
+                "#story-content",
+                {
+                    scrollTrigger: {
+                        trigger: "#story-content",
+                        start: "top bottom",
+                        toggleActions: "restart none none reset"
+                    },
+                    opacity: 1,
+                    x: 0,
+                    y: 0,
+                    duration: 1
+                }
+            );
+
+            colorsTimeline = gsap.timeline({
+                scrollTrigger: {
+                    trigger: "#story",
+                    start: "bottom bottom",
+                    end: "bottom bottom",
+                    scrub: true,
+                    toggleAttribute: "restart none none reset"
+                },
+                onComplete: () => { document.body.style.backgroundColor = "#DFDFF0" },
+                onReverseComplete: () => { document.body.style.backgroundColor = "black" },
+            })
+            .to(
+                ".story-header",
+                { color: oklchToHex("oklch(21% 0.006 285.885)") }
+            )
+            .to(
+                ".story-desc",
+                { color: oklchToHex("oklch(21% 0.006 285.885)") }
+            )
+            .to(
+                "#story-content",
+                { color: oklchToHex("oklch(21% 0.006 285.885)") },
+                "<"
+            )
+            .to(
+                storyButtonRef.current,
+                {
+                    color: "#DFDFF0",
+                    backgroundColor: oklchToHex("oklch(21% 0.006 285.885)")
+                },
+                "<"
+            );
+        });
+
+        handleTween();
+
+        const handleResize = () => {
+            if (timeout) {
+                clearTimeout(timeout);
+                timeout = undefined;
+            }
+
+            timeout = setTimeout(() => { handleTween() }, 500);
+        }
+
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            if (timeout) {
+                clearTimeout(timeout);
+                timeout = undefined;
+            }
+
+            window.removeEventListener("resize", handleResize);
+        }
     }, []);
 
     return (
