@@ -6,6 +6,7 @@ import Hero from "./components/hero";
 import About from "./components/about";
 import Features from "./components/features";
 import Story from "./components/story";
+import Abilities from "./components/abilities";
 
 import gsap from "gsap";
 import SplitText from "gsap/SplitText";
@@ -22,6 +23,7 @@ export default function Zentry() {
             <About />
             <Features />
             <Story />
+            <Abilities />
 
             <div className="h-[2000px]" />
         </main>

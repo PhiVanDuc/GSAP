@@ -68,6 +68,10 @@ body {
   @apply px-[20px] sm:px-[40px] md:px-[60px] lg:px-[80px] xl:px-[100px];
 }
 
+.full-section-padding {
+  @apply px-[20px] sm:px-[40px] md:px-[60px] lg:px-[80px] xl:px-[100px] pb-[120px] pt-[60px] md:pt-[120px];
+}
+
 .hero-header {
   @apply font-zentry text-[80px] sm:text-[120px] lg:text-[205px] font-bold leading-none lg:tracking-[-2px];
 }
@@ -90,4 +94,8 @@ body {
 
 .feature-card-title {
   @apply md:text-6xl text-4xl font-black font-zentry uppercase
+}
+
+.abilities-transition {
+  @apply transition-all duration-500;
 }
