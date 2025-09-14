@@ -72,7 +72,7 @@ export default function Abilities() {
 
                             if (progress > 0 && progress < 1) {
                                 headerContent.style.color = oklchToHex("oklch(21% 0.006 285.885)");
-                                header.style.fontSize = isMobile ? "18px" : "22px";
+                                header.style.fontSize = isMobile ? "16px" : "22px";
 
                                 bodyContent.style.height = `${content.getBoundingClientRect().height}px`;
 
@@ -81,7 +81,7 @@ export default function Abilities() {
                             }
                             else {
                                 headerContent.style.color = oklchToHex("oklch(55.2% 0.016 285.938)");
-                                header.style.fontSize = isMobile ? "14px" : "15px";
+                                header.style.fontSize = isMobile ? "13px" : "15px";
                                 bodyContent.style.height = `0px`;
                                 progressBar.style.height = "0px";
                             }
@@ -118,7 +118,7 @@ export default function Abilities() {
         <section
             id="abilities"
             className={cn(
-                "full-section-padding !pb-[20px] h-screen flex flex-col justify-between",
+                "full-section-padding !pb-[20px] h-screen flex flex-col",
                 "md:!pb-[40px]"
             )}
         >
@@ -147,7 +147,7 @@ export default function Abilities() {
 
             <div
                 id="abilities-content"
-                className="space-y-[15px] md:space-y-[25px]"
+                className="flex-1 flex flex-col justify-end gap-[15px] md:gap-[25px] "
             >
                 {
                     contents.map((content, index) => {
@@ -160,14 +160,14 @@ export default function Abilities() {
                             >
                                 <div className="header-content flex items-center gap-[40px] text-zinc-500">
                                     <p className={cn(
-                                        "shrink-0 w-[30px] text-[14px] text-center font-medium abilities-transition",
+                                        "shrink-0 w-[30px] text-[13px] text-center font-medium abilities-transition",
                                         "md:text-[15px]"
                                     )}>
                                         0{index + 1}
                                     </p>
 
                                     <h3 className={cn(
-                                        "w-fit text-[14px] font-semibold font-circular-web uppercase abilities-transition",
+                                        "w-fit text-[13px] font-semibold font-circular-web uppercase abilities-transition",
                                         "md:text-[15px]"
                                     )}>
                                         {content.title}
@@ -182,8 +182,8 @@ export default function Abilities() {
                                     </div>
 
                                     <p className={cn(
-                                        "w-full max-w-[360px] h-fit text-[12px] text-zinc-600 font-general abilities-transition",
-                                        "md:text-[14px]"
+                                        "w-full max-w-[360px] h-fit text-[10px] text-zinc-600 font-general abilities-transition",
+                                        "md:text-[13px]"
                                     )}>
                                         {content.content}
                                     </p>
