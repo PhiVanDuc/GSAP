@@ -117,7 +117,10 @@ export default function Abilities() {
     return (
         <section
             id="abilities"
-            className="full-section-padding !pb-[40px] h-screen flex flex-col justify-between"
+            className={cn(
+                "full-section-padding !pb-[20px] h-screen flex flex-col justify-between",
+                "md:!pb-[40px]"
+            )}
         >
             <header className={cn(
                 "flex flex-col items-center gap-[20px]",
@@ -144,7 +147,7 @@ export default function Abilities() {
 
             <div
                 id="abilities-content"
-                className="space-y-[25px]"
+                className="space-y-[15px] md:space-y-[25px]"
             >
                 {
                     contents.map((content, index) => {
@@ -153,14 +156,20 @@ export default function Abilities() {
                         return(
                             <div
                                 key={key}
-                                className={`${key} space-y-[15px]`}
+                                className={`${key} space-y-[10px] md:space-y-[15px]`}
                             >
                                 <div className="header-content flex items-center gap-[40px] text-zinc-500">
-                                    <p className="shrink-0 w-[30px] text-[14px] md:text-[15px] text-center font-medium abilities-transition">
+                                    <p className={cn(
+                                        "shrink-0 w-[30px] text-[14px] text-center font-medium abilities-transition",
+                                        "md:text-[15px]"
+                                    )}>
                                         0{index + 1}
                                     </p>
 
-                                    <h3 className="w-fit text-[14px] md:text-[15px] font-semibold font-circular-web uppercase abilities-transition">
+                                    <h3 className={cn(
+                                        "w-fit text-[14px] font-semibold font-circular-web uppercase abilities-transition",
+                                        "md:text-[15px]"
+                                    )}>
                                         {content.title}
                                     </h3>
                                 </div>
@@ -172,7 +181,10 @@ export default function Abilities() {
                                         </div>
                                     </div>
 
-                                    <p className="w-full max-w-[360px] h-fit text-[14px] text-zinc-600 font-general abilities-transition">
+                                    <p className={cn(
+                                        "w-full max-w-[360px] h-fit text-[12px] text-zinc-600 font-general abilities-transition",
+                                        "md:text-[14px]"
+                                    )}>
                                         {content.content}
                                     </p>
                                 </div>
