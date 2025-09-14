@@ -1,11 +1,13 @@
 "use client"
 
 import { useGSAP } from "@gsap/react";
+import { useMediaQuery } from "react-responsive";
 
 import AnimatedHeading from "./reuse/animated-heading";
 import Button from "@/app/zentry/components/reuse/button";
 
 import gsap from "gsap";
+import { cn } from "@/utils/cn";
 import oklchToHex from "@/utils/oklch-to-hex";
 
 const contents = [
@@ -24,57 +26,92 @@ const contents = [
 ]
 
 export default function Abilities() {
+    const isMobile = useMediaQuery({ maxWidth: "767px" });
+
     useGSAP(() => {
-        const pinEnd = `${window.innerHeight * 3}px`;
+        let displayTimeline;
+        let timeout;
 
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: "#abilities",
-                start: "top top",
-                end: () => pinEnd,
-                scrub: true,
-                pin: true
+        const handleAnimate = () => {
+            if (displayTimeline) {
+                if (displayTimeline.scrollTrigger) displayTimeline.scrollTrigger.kill();
+                displayTimeline.kill();
+                displayTimeline = undefined;
             }
-        })
 
-        contents.forEach((_, i) => {
-            const selector = `.abilities-content-${i + 1}`;
+            const pinEnd = `${window.innerHeight * 3}px`;
 
-            tl.to(
-                selector,
-                {
-                    onUpdate: function() {
-                        const container = document.querySelector(selector);
-                        if (!container) return;
-                                            
-                        const progress = this.progress();
-                        const progressBar = container.querySelector(".progress");
+            displayTimeline = gsap.timeline({
+                scrollTrigger: {
+                    trigger: "#abilities",
+                    start: "top top",
+                    end: () => pinEnd,
+                    scrub: true,
+                    pin: true
+                }
+            })
 
-                        const headerContent = container.querySelector(".header-content");
-                        const header = headerContent.querySelector("h3");
+            contents.forEach((_, i) => {
+                const selector = `.abilities-content-${i + 1}`;
 
-                        const bodyContent = container.querySelector(".body-content");
-                        const content = bodyContent.querySelector("p");
+                displayTimeline.to(
+                    selector,
+                    {
+                        onUpdate: function() {
+                            const container = document.querySelector(selector);
+                            if (!container) return;
+                                                
+                            const progress = this.progress();
+                            const progressBar = container.querySelector(".progress");
 
-                        if (progress > 0 && progress < 1) {
-                            headerContent.style.color = oklchToHex("oklch(21% 0.006 285.885)");
-                            header.style.fontSize = "22px";
+                            const headerContent = container.querySelector(".header-content");
+                            const header = headerContent.querySelector("h3");
 
-                            bodyContent.style.height = `${content.getBoundingClientRect().height}px`;
+                            const bodyContent = container.querySelector(".body-content");
+                            const content = bodyContent.querySelector("p");
 
-                            const maxHeight = bodyContent.getBoundingClientRect().height;
-                            progressBar.style.height = `${progress * maxHeight}px`;
-                        }
-                        else {
-                            headerContent.style.color = oklchToHex("oklch(55.2% 0.016 285.938)");
-                            header.style.fontSize = "15px";
-                            bodyContent.style.height = `0px`;
-                            progressBar.style.height = "0px";
+                            if (progress > 0 && progress < 1) {
+                                headerContent.style.color = oklchToHex("oklch(21% 0.006 285.885)");
+                                header.style.fontSize = isMobile ? "18px" : "22px";
+
+                                bodyContent.style.height = `${content.getBoundingClientRect().height}px`;
+
+                                const maxHeight = bodyContent.getBoundingClientRect().height;
+                                progressBar.style.height = `${progress * maxHeight}px`;
+                            }
+                            else {
+                                headerContent.style.color = oklchToHex("oklch(55.2% 0.016 285.938)");
+                                header.style.fontSize = isMobile ? "14px" : "15px";
+                                bodyContent.style.height = `0px`;
+                                progressBar.style.height = "0px";
+                            }
                         }
                     }
-                }
-            );
-        });
+                );
+            });
+        }
+
+        handleAnimate();
+
+        const handleResize = () => {
+            if (timeout) {
+                clearTimeout(timeout);
+                timeout = undefined;
+            }
+
+            timeout = setTimeout(() => { handleAnimate() }, 500);
+        }
+        
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            if (timeout) {
+                clearTimeout(timeout);
+                timeout = undefined;
+            }
+
+            window.removeEventListener("resize", handleResize);
+        }
     }, []);
 
     return (
@@ -82,17 +119,26 @@ export default function Abilities() {
             id="abilities"
             className="full-section-padding !pb-[40px] h-screen flex flex-col justify-between"
         >
-            <header className="space-y-[20px]">
+            <header className={cn(
+                "flex flex-col items-center gap-[20px]",
+                "sm:items-start"
+            )}>
                 <AnimatedHeading
                     heading={["the symbiotic world", "powered by zent"]}
                     triggerQuery=".abilities-header"
                     delay={0.3}
-                    className="abilities-header"
+                    className={cn(
+                        "abilities-header text-center",
+                        "sm:text-start"
+                    )}
                 />
 
                 <Button
                     label="enter vault"
-                    className="text-[14px] text-white font-medium uppercase bg-zinc-900 py-[15px]"
+                    className={cn(
+                        "w-fit py-[18px] text-[12px] text-blue-50 font-medium uppercase bg-zinc-900",
+                        "md:text-[14px]"
+                    )}
                 />
             </header>
 
@@ -110,11 +156,11 @@ export default function Abilities() {
                                 className={`${key} space-y-[15px]`}
                             >
                                 <div className="header-content flex items-center gap-[40px] text-zinc-500">
-                                    <p className="shrink-0 w-[30px] text-[14px] text-center font-medium abilities-transition">
+                                    <p className="shrink-0 w-[30px] text-[14px] md:text-[15px] text-center font-medium abilities-transition">
                                         0{index + 1}
                                     </p>
 
-                                    <h3 className="text-[14px] font-semibold font-circular-web uppercase abilities-transition">
+                                    <h3 className="w-fit text-[14px] md:text-[15px] font-semibold font-circular-web uppercase abilities-transition">
                                         {content.title}
                                     </h3>
                                 </div>

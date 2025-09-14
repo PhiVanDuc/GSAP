@@ -24,8 +24,6 @@ export default function Zentry() {
             <Features />
             <Story />
             <Abilities />
-
-            <div className="h-[2000px]" />
         </main>
     )
 }
