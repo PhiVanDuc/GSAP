@@ -129,7 +129,7 @@ export default function Features() {
                     "grid grid-cols-1 gap-[20px]",
                     "sm:grid-cols-2"
                 )}>
-                    <TiltedCard className="sm:!h-full sm:row-span-2">
+                    <TiltedCard className="h-[400px] sm:!h-full sm:row-span-2">
                         <CardTemplate
                             src="/zentry/videos/feature-2.mp4"
                             title={
