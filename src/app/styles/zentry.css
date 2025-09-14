@@ -28,7 +28,7 @@
 
 @theme {
   --font-sans: "General Sans", sans-serif;
-  --font-zentry: "zentry", serif;
+  --font-zentry: "zentry", sans-serif;
   --font-general: "general", serif;
   --font-circular-web: "circular-web", serif;
   --font-robert-medium: "robert-medium", serif;
