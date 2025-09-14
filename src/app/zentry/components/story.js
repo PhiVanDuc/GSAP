@@ -109,8 +109,14 @@ export default function Story() {
                     scrub: true,
                     toggleAttribute: "restart none none reset"
                 },
-                onComplete: () => { document.body.style.backgroundColor = "#DFDFF0" },
-                onReverseComplete: () => { document.body.style.backgroundColor = "black" },
+                onComplete: () => {
+                    const zentry = document.querySelector("#zentry");
+                    zentry.style.backgroundColor = "#DFDFF0"
+                },
+                onReverseComplete: () => { 
+                    const zentry = document.querySelector("#zentry");
+                    zentry.style.backgroundColor = "black"
+                },
             })
             .to(
                 ".story-header",

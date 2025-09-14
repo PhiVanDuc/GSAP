@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 
+import Navbar from "./components/navbar";
 import Hero from "./components/hero";
 import About from "./components/about";
 import Features from "./components/features";
@@ -18,7 +19,11 @@ export default function Zentry() {
     useEffect(() => { ScrollTrigger.normalizeScroll(true) }, []);
 
     return (
-        <main className="relative">
+        <main
+            id="zentry"
+            className="relative"
+        >
+            <Navbar />
             <Hero />
             <About />
             <Features />

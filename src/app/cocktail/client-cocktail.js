@@ -17,7 +17,7 @@ gsap.registerPlugin(
 
 export default function ClientCockTail() {
     return (
-        <main>
+        <main id="cocktail">
             <Navbar />
             <Hero />
             <Cocktail />

@@ -140,7 +140,7 @@ export default function Hero() {
                 )}>
                     <div
                         id="hero-preview-video"
-                        className="size-full border border-zinc-800 bg-zinc-500 rounded-[15px] cursor-pointer overflow-hidden"
+                        className="size-full border border-zinc-800 bg-white rounded-[15px] cursor-pointer overflow-hidden"
                         onClick={handleClickPreviewVideo}
                     >
                         <video

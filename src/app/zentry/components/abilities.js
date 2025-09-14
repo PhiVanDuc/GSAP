@@ -9,21 +9,7 @@ import Button from "@/app/zentry/components/reuse/button";
 import gsap from "gsap";
 import { cn } from "@/utils/cn";
 import oklchToHex from "@/utils/oklch-to-hex";
-
-const contents = [
-    {
-        title: "Shaping Zentry Collectively",
-        content: "ZENT holders shape governance, set direction, and steer the evolution of the Human-Agentic OS, serving as co-architects of a new civilization."
-    },
-    {
-        title: "Unlocking Economic Opportunity",
-        content: "ZENT is the index for crypto and AI, giving holders access to new markets, agent tokenization, data economies, and protocol rewards, unlocking utility and upside across the industries it powers."
-    },
-    {
-        title: "Sharing Value Accrued",
-        content: "ZENT holders benefit from Zentry’s ecosystem growth, capturing value from partnerships, treasury strategy, and real-world participation."
-    }
-]
+import { abilitiesContents } from "@/constants/zentry";
 
 export default function Abilities() {
     const isMobile = useMediaQuery({ maxWidth: "767px" });
@@ -51,7 +37,7 @@ export default function Abilities() {
                 }
             })
 
-            contents.forEach((_, i) => {
+            abilitiesContents.forEach((_, i) => {
                 const selector = `.abilities-content-${i + 1}`;
 
                 displayTimeline.to(
@@ -150,7 +136,7 @@ export default function Abilities() {
                 className="flex-1 flex flex-col justify-end gap-[15px] md:gap-[25px] "
             >
                 {
-                    contents.map((content, index) => {
+                    abilitiesContents.map((content, index) => {
                         const key = `abilities-content-${index + 1}`;
 
                         return(

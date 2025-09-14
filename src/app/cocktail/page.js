@@ -1,4 +1,4 @@
-import "@/app/styles/cocktail.css";
+import "@/styles/cocktail.css";
 
 import ClientCockTail from "./client-cocktail";
 

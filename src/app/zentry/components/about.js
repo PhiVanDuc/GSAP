@@ -69,9 +69,15 @@ export default function About() {
                         end: `bottom top`,
                         scrub: true,
                         pin: true,
-                        onEnterBack: () => { document.body.style.backgroundColor = "#DFDFF0" }
+                        onEnterBack: () => {
+                            const zentry = document.querySelector("#zentry");
+                            zentry.style.backgroundColor = "#DFDFF0";
+                        }
                     },
-                    onComplete: () => { document.body.style.backgroundColor = "black" }
+                    onComplete: () => {
+                        const zentry = document.querySelector("#zentry");
+                        zentry.style.backgroundColor = "black";
+                    }
                 }
             );
         });
