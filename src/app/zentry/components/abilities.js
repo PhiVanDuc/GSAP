@@ -118,7 +118,7 @@ export default function Abilities() {
         <section
             id="abilities"
             className={cn(
-                "full-section-padding !pb-[20px] h-screen flex flex-col",
+                "full-section-padding !pb-[20px] h-dvh flex flex-col",
                 "md:!pb-[40px]"
             )}
         >
