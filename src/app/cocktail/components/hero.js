@@ -55,13 +55,13 @@ export default function Hero() {
         .to(".left-leaf", { y: -200 }, 0)
 
         const startValue = isMobile ? "top 50%" : "center 60%";
-        const endValue = isMobile ? "123% top" : "bottom top";
+        // const endValue = isMobile ? "123% top" : "bottom top";
 
         let tl = gsap.timeline({
             scrollTrigger: {
                 trigger: "video",
                 start: startValue,
-                end: endValue,
+                end: "bottom top",
                 scrub: true,
                 pin: true,
             }
@@ -119,7 +119,7 @@ export default function Hero() {
                 </div>
             </section>
 
-            <div className="video absolute inset-0 hidden lg:block">
+            <div className="video absolute inset-0 hidden md:block">
                 <video
                     ref={videoRef}
                     muted

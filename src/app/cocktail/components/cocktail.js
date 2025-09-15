@@ -9,7 +9,7 @@ import { cocktailLists, mockTailLists } from "@/constants";
 
 export default function Cocktail() {
     useGSAP(() => {
-        const parallaxTimeline = gsap.timeline({
+        gsap.timeline({
             scrollTrigger: {
                 trigger: "#cocktails",
                 start: "top 30%",
