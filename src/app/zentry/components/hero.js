@@ -155,7 +155,7 @@ export default function Hero() {
             
             <div
                 id="hero-video-box"
-                className="relative w-full h-full border border-neutral-800 overflow-hidden"
+                className="relative w-full h-full border border-neutral-800 overflow-hidden z-10"
                 style={{
                     clipPath: "polygon(0 0%, 100% 0, 100% 100%, 0 100%)"
                 }}
@@ -222,7 +222,7 @@ export default function Hero() {
             </div>
 
             <h2 className={cn(
-                "hero-header hidden absolute bottom-[20px] right-[50px] text-zinc-800 -z-10",
+                "hero-header hidden absolute bottom-[20px] right-[50px] text-zinc-800",
                 "sm:block"
             )}>
                 G<b className="special-zentry-font">A</b>MING
